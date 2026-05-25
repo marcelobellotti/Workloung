@@ -398,6 +398,14 @@
 <input type="file" id="fi" style="display:none" multiple onchange="onPick(event)">
 
 <script>
+window.onerror = function(msg, src, line, col, err){
+  const d = document.createElement('div');
+  d.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:#ff5252;color:#fff;padding:10px 16px;font-size:12px;font-family:monospace;z-index:9999;';
+  d.textContent = '⚠ JS Error: ' + msg + ' (linha ' + line + ')';
+  document.body.appendChild(d);
+  return false;
+};
+
 // ── CONFIG ───────────────────────────────────────────────────
 const G_CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com';
 const G_FOLDER_ID = '';
@@ -468,13 +476,15 @@ function load(){
   try{
     const d = JSON.parse(localStorage.getItem(KEY)||'{}');
     if(d.clients && d.clients.length) { S.clients = d.clients; mergeResponses(); return; }
-  }catch{}
+  }catch(e){ console.warn('load error:',e); }
   // First run: seed from spreadsheet
   S.clients = SEED.map(c => ({
     ...c,
     id: String(c.id),
+    nome: c.nome || '',
     stages: c.stages || initStages()
   }));
+  mergeResponses();
   save();
 }
 
@@ -485,7 +495,7 @@ function initStages(){
 }
 
 function uid(){return Date.now()+Math.random().toString(36).slice(2)}
-function initials(n){return n.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase()}
+function initials(n){if(!n)return'?';return n.split(' ').filter(Boolean).slice(0,2).map(w=>w[0]||'').join('').toUpperCase()||'?'}
 function fdate(d){if(!d)return'—';const x=new Date(d);return isNaN(x)?d:x.toLocaleDateString('pt-BR')}
 function fsize(b){if(b<1024)return b+' B';if(b<1048576)return(b/1024).toFixed(1)+' KB';return(b/1048576).toFixed(1)+' MB'}
 function today(){return new Date().toISOString().split('T')[0]}
@@ -1175,8 +1185,19 @@ function renderBlockTable(clients){
 }
 
 // ── BOOT ─────────────────────────────────────────────────────
-load();
-goHome();
+try {
+  load();
+  goHome();
+} catch(e) {
+  console.error('Boot failed:', e);
+  document.body.insertAdjacentHTML('beforeend',
+    `<div style="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#0A0A0A;color:#ff5252;font-family:monospace;flex-direction:column;gap:12px;padding:24px;z-index:9999;">
+      <div style="font-size:20px;">⚠ Erro ao inicializar</div>
+      <div style="font-size:13px;color:#fff;max-width:600px;text-align:center;">${e.message}</div>
+      <button onclick="localStorage.clear();location.reload()" style="margin-top:12px;padding:10px 20px;background:#00C853;border:none;border-radius:8px;color:#000;font-weight:800;cursor:pointer;font-size:13px;">Limpar cache e recarregar</button>
+    </div>`
+  );
+}
 </script>
 </body>
 </html>
