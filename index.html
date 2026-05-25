@@ -1156,8 +1156,7 @@ function renderBlockTable(clients){
   return`<table>
     <thead><tr>
       <th>Cliente</th><th>Empresa</th><th>BU / Área</th><th>Cargo</th>
-      ${PERIODS.map(p=>`<th class="period-head">${p.replace(' — ','
-')}</th>`).join('')}
+      ${PERIODS.map(p=>`<th class="period-head">${p.replace(' — ','<br>')}</th>`).join('')}
       <th>NPS Médio</th><th>Classificação</th><th>Status</th>
     </tr></thead>
     <tbody>
