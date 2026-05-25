@@ -354,11 +354,31 @@
       <button class="btn-x" onclick="closeOv('oNew')">×</button>
     </div>
     <div class="mbody">
+      <div><label class="lbl">Empresa *</label><input class="inp" id="fCo" placeholder="Ex: Mercado Livre"></div>
+      <div><label class="lbl">BU</label><input class="inp" id="fBU" placeholder="Ex: Growth, Fashion, Merch…"></div>
+      <div><label class="lbl">Área</label><input class="inp" id="fArea" placeholder="Ex: Ads - T1 &amp; T2"></div>
       <div><label class="lbl">Nome do Cliente *</label><input class="inp" id="fName" placeholder="Ex: João Silva"></div>
-      <div><label class="lbl">Empresa</label><input class="inp" id="fCo" placeholder="Ex: Mercado Livre"></div>
-      <div><label class="lbl">Projeto / Área</label><input class="inp" id="fProj" placeholder="Ex: Ads - T1 & T2"></div>
-      <div><label class="lbl">Responsável</label><input class="inp" id="fOwner" placeholder="Ex: Maria Oliveira"></div>
       <div><label class="lbl">E-mail</label><input class="inp" type="email" id="fEmail" placeholder="cliente@empresa.com"></div>
+      <div><label class="lbl">Tipo de Serviço</label>
+        <select class="sel" id="fServico">
+          <option value="">Selecione…</option>
+          <option value="Atendimento + Design">Atendimento + Design</option>
+          <option value="Atendimento + Design + Operação">Atendimento + Design + Operação</option>
+          <option value="Atendimento + Design + Estratégia + Operação">Atendimento + Design + Estratégia + Operação</option>
+          <option value="AV + Atendimento + Design">Atendimento + Design + AV</option>
+          <option value="AV + Atendimento + Design + Operação">Atendimento + Design + Operação + AV</option>
+          <option value="Atendimento + Operação">Atendimento + Operação</option>
+          <option value="Atendimento + Operação de Moderação">Atendimento + Operação de Moderação</option>
+          <option value="Recurso Humano">Recurso Humano</option>
+        </select>
+      </div>
+      <div><label class="lbl">Idioma</label>
+        <select class="sel" id="fIdioma">
+          <option value="PT">PT — Português</option>
+          <option value="ES">ES — Espanhol</option>
+          <option value="EN">EN — Inglês</option>
+        </select>
+      </div>
     </div>
     <div class="mfoot">
       <button class="btn-cancel" onclick="closeOv('oNew')">Cancelar</button>
@@ -689,30 +709,42 @@ function delFile(cid,sid,idx){
 
 // ── CLIENT CRUD ──────────────────────────────────────────────
 function saveClient(){
+  const empresa=document.getElementById('fCo').value.trim();
   const name=document.getElementById('fName').value.trim();
-  if(!name){toast('Informe o nome','terr');return}
+  if(!empresa&&!name){toast('Informe empresa ou nome','terr');return}
+  const bu=document.getElementById('fBU').value.trim();
+  const area=document.getElementById('fArea').value.trim();
+  const email=document.getElementById('fEmail').value.trim();
+  const servico=document.getElementById('fServico').value;
+  const idioma=document.getElementById('fIdioma').value||'PT';
   if(S.editId){
     const c=S.clients.find(x=>String(x.id)===S.editId);
-    if(c){c.nome=name;c.empresa=document.getElementById('fCo').value.trim();c.proj=document.getElementById('fProj').value.trim();c.area=document.getElementById('fProj').value.trim();c.owner=document.getElementById('fOwner').value.trim();c.email=document.getElementById('fEmail').value.trim()}
+    if(c){c.nome=name||c.nome;c.empresa=empresa;c.bu=bu;c.area=area;c.proj=area;c.email=email;c.servico=servico;c.idioma=idioma}
     S.editId=null;toast('Cliente atualizado');
   }else{
-    const nc={id:uid(),nome:name,empresa:document.getElementById('fCo').value.trim(),bu:'',area:document.getElementById('fProj').value.trim(),proj:document.getElementById('fProj').value.trim(),cargo:'',email:document.getElementById('fEmail').value.trim(),servico:'',idioma:'PT',status:'Ativo',feedbacks:[{periodo:'Q2 2026 — Maio',data:null,nps:null},{periodo:'Q3 2026 — Setembro',data:null,nps:null},{periodo:'Q1 2027 — Janeiro',data:null,nps:null},{periodo:'Q2 2027 — Abril',data:null,nps:null},{periodo:'Q3 2027 — Julho',data:null,nps:null}],nps_medio:null,classificacao:null,stages:initStages()};
-    S.clients.unshift(nc);S.sel=String(nc.id);toast(`"${name}" criado`);
+    const nc={id:uid(),nome:name,empresa,bu,area,proj:area,cargo:'',email,servico,idioma,status:'Ativo',feedbacks:[{periodo:'Q2 2026 — Maio',data:null,nps:null},{periodo:'Q3 2026 — Setembro',data:null,nps:null},{periodo:'Q1 2027 — Janeiro',data:null,nps:null},{periodo:'Q2 2027 — Abril',data:null,nps:null},{periodo:'Q3 2027 — Julho',data:null,nps:null}],nps_medio:null,classificacao:null,stages:initStages()};
+    S.clients.unshift(nc);S.sel=String(nc.id);toast(`"${name||empresa}" criado`);
   }
   save();clearForm();closeOv('oNew');renderClients();
 }
-function clearForm(){['fName','fCo','fProj','fOwner','fEmail'].forEach(id=>document.getElementById(id).value='')}
+function clearForm(){
+  ['fName','fCo','fBU','fArea','fEmail'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('fServico').value='';
+  document.getElementById('fIdioma').value='PT';
+}
 function resetModal(){S.editId=null;document.getElementById('mTitle').textContent='Novo Cliente';document.getElementById('mSaveBtn').textContent='Criar Cliente';clearForm()}
 function openEdit(id){
   const c=S.clients.find(x=>String(x.id)===String(id));if(!c)return;
   S.editId=String(id);
   document.getElementById('mTitle').textContent='Editar Cliente';
   document.getElementById('mSaveBtn').textContent='Salvar';
-  document.getElementById('fName').value=c.nome||'';
   document.getElementById('fCo').value=c.empresa||'';
-  document.getElementById('fProj').value=c.area||c.proj||'';
-  document.getElementById('fOwner').value=c.owner||'';
+  document.getElementById('fBU').value=c.bu||'';
+  document.getElementById('fArea').value=c.area||c.proj||'';
+  document.getElementById('fName').value=c.nome||'';
   document.getElementById('fEmail').value=c.email||'';
+  document.getElementById('fServico').value=c.servico||'';
+  document.getElementById('fIdioma').value=c.idioma||'PT';
   openOv('oNew');
 }
 
