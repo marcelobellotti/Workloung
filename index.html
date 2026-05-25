@@ -6,1091 +6,863 @@
   <title>Workloung · AtivGreen</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <script src="https://accounts.google.com/gsi/client" async></script>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg:          #0A0A0A;
-      --surface-1:   #141414;
-      --surface-2:   #1E1E1E;
-      --surface-3:   #272727;
-      --border:      rgba(255,255,255,0.07);
-      --border-md:   rgba(255,255,255,0.13);
-      --primary:     #00C853;
-      --primary-glow:rgba(0,200,83,0.14);
-      --primary-lt:  #69F0AE;
-      --accent:      #00E676;
-      --amber:       #FFD740;
-      --amber-glow:  rgba(255,215,64,0.12);
-      --red:         #FF5252;
-      --text-1:      #FFFFFF;
-      --text-2:      rgba(255,255,255,0.60);
-      --text-3:      rgba(255,255,255,0.30);
-      --radius:      12px;
-      --radius-sm:   8px;
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#0A0A0A;--s1:#141414;--s2:#1E1E1E;--s3:#272727;
+      --bd:rgba(255,255,255,.07);--bdm:rgba(255,255,255,.13);
+      --g:#00C853;--gg:rgba(0,200,83,.14);--gl:#69F0AE;--ga:#00E676;
+      --amb:#FFD740;--ambg:rgba(255,215,64,.12);
+      --red:#FF5252;
+      --t1:#fff;--t2:rgba(255,255,255,.60);--t3:rgba(255,255,255,.30);
+      --r:12px;--rs:8px;
     }
-
-    html { font-family: 'Inter', -apple-system, sans-serif; }
-    body {
-      background: var(--bg);
-      color: var(--text-1);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    ::-webkit-scrollbar { width: 5px; height: 5px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.10); border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.18); }
+    html{font-family:'Inter',-apple-system,sans-serif}
+    body{background:var(--bg);color:var(--t1);min-height:100vh;font-size:14px;line-height:1.5;display:flex;flex-direction:column}
+    ::-webkit-scrollbar{width:5px;height:5px}
+    ::-webkit-scrollbar-track{background:transparent}
+    ::-webkit-scrollbar-thumb{background:rgba(255,255,255,.10);border-radius:3px}
 
     /* ── HEADER ── */
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 24px;
-      height: 58px;
-      background: var(--surface-1);
-      border-bottom: 1px solid var(--border);
-      position: sticky; top: 0; z-index: 100;
-      flex-shrink: 0;
-    }
+    .hdr{display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:58px;background:var(--s1);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:200;flex-shrink:0}
+    .logo{display:flex;align-items:center;gap:10px;cursor:pointer;text-decoration:none}
+    .lmark{width:32px;height:32px;background:var(--g);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;color:#000}
+    .lbrand{font-size:15px;font-weight:700;letter-spacing:-.3px;color:var(--t1)}
+    .lsub{font-size:10px;font-weight:600;color:var(--g);letter-spacing:1.4px;text-transform:uppercase}
+    .hdr-nav{display:flex;gap:4px}
+    .hdr-btn{padding:6px 14px;border-radius:var(--rs);background:transparent;border:1px solid transparent;color:var(--t2);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
+    .hdr-btn:hover{color:var(--t1);background:var(--s2)}
+    .hdr-btn.act{color:var(--g);border-color:rgba(0,200,83,.3);background:var(--gg)}
+    .btn-gd{display:flex;align-items:center;gap:7px;padding:6px 13px;background:var(--s2);border:1px solid var(--bdm);border-radius:var(--rs);color:var(--t2);font-size:12px;font-weight:500;cursor:pointer;transition:all .2s}
+    .btn-gd:hover{border-color:var(--g);color:var(--g)}
+    .btn-gd.ok{border-color:var(--g);color:var(--g)}
+    .gdot{width:7px;height:7px;border-radius:50%;background:var(--red);transition:background .3s}
+    .gdot.on{background:var(--g)}
 
-    .logo { display: flex; align-items: center; gap: 10px; }
-    .logo-mark {
-      width: 32px; height: 32px;
-      background: var(--primary);
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 900; font-size: 15px; color: #000;
-    }
-    .logo-brand { font-size: 15px; font-weight: 700; letter-spacing: -.3px; }
-    .logo-sub   { font-size: 10px; font-weight: 600; color: var(--primary); letter-spacing: 1.4px; text-transform: uppercase; }
+    /* ── VIEWS ── */
+    .view{display:none;flex:1}
+    .view.on{display:flex;flex-direction:column}
 
-    .header-title { font-size: 13px; font-weight: 600; color: var(--text-2); letter-spacing: .4px; }
+    /* ══════════════════════════════════════════
+       HOME
+    ══════════════════════════════════════════ */
+    .home{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;gap:40px}
+    .home-hero{text-align:center}
+    .home-hero h1{font-size:32px;font-weight:900;letter-spacing:-.5px;margin-bottom:10px}
+    .home-hero h1 span{color:var(--g)}
+    .home-hero p{font-size:15px;color:var(--t2);max-width:420px;line-height:1.7}
+    .home-cards{display:grid;grid-template-columns:1fr 1fr;gap:20px;width:100%;max-width:720px}
+    .hcard{background:var(--s1);border:1px solid var(--bdm);border-radius:16px;padding:32px 28px;cursor:pointer;transition:all .25s;display:flex;flex-direction:column;gap:14px}
+    .hcard:hover{border-color:var(--g);transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,200,83,.12)}
+    .hcard-ico{font-size:40px}
+    .hcard h2{font-size:18px;font-weight:800}
+    .hcard p{font-size:13px;color:var(--t2);line-height:1.6}
+    .hcard-arr{margin-top:auto;display:flex;align-items:center;gap:6px;color:var(--g);font-size:13px;font-weight:700}
+    .home-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;width:100%;max-width:720px}
+    .hstat{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);padding:16px;text-align:center}
+    .hstat-n{font-size:28px;font-weight:900;color:var(--g)}
+    .hstat-l{font-size:11px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.6px;margin-top:3px}
 
-    .btn-gdrive {
-      display: flex; align-items: center; gap: 8px;
-      padding: 7px 14px;
-      background: var(--surface-2);
-      border: 1px solid var(--border-md);
-      border-radius: var(--radius-sm);
-      color: var(--text-2); font-size: 13px; font-weight: 500;
-      cursor: pointer; transition: all .2s;
-    }
-    .btn-gdrive:hover { border-color: var(--primary); color: var(--primary); }
-    .btn-gdrive.ok   { border-color: var(--primary); color: var(--primary); }
-    .gdot { width: 7px; height: 7px; border-radius: 50%; background: var(--red); transition: background .3s; }
-    .gdot.on { background: var(--primary); }
+    /* ══════════════════════════════════════════
+       CLIENTS (WORKFLOW)
+    ══════════════════════════════════════════ */
+    .layout{display:flex;flex:1;overflow:hidden;height:calc(100vh - 58px)}
+    .sidebar{width:256px;flex-shrink:0;background:var(--s1);border-right:1px solid var(--bd);display:flex;flex-direction:column;overflow:hidden}
+    .sb-top{padding:14px 12px 10px;border-bottom:1px solid var(--bd)}
+    .sb-lbl{font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:10px;padding-left:4px}
+    .srch{width:100%;padding:8px 11px;background:var(--s2);border:1px solid var(--bd);border-radius:var(--rs);color:var(--t1);font-size:13px;font-family:inherit;outline:none;transition:border .2s}
+    .srch::placeholder{color:var(--t3)}
+    .srch:focus{border-color:var(--g)}
+    .clist{flex:1;overflow-y:auto;padding:8px}
+    .ci{padding:10px 11px;border-radius:var(--rs);cursor:pointer;transition:background .15s;margin-bottom:2px;border:1px solid transparent}
+    .ci:hover{background:var(--s2)}
+    .ci.sel{background:var(--gg);border-color:rgba(0,200,83,.25)}
+    .cn{font-size:13px;font-weight:600;color:var(--t1);margin-bottom:1px}
+    .cco{font-size:11px;color:var(--t3)}
+    .cbadge{display:inline-flex;align-items:center;gap:3px;padding:2px 7px;border-radius:20px;font-size:10px;font-weight:700;margin-top:5px}
+    .bp{background:rgba(255,255,255,.06);color:var(--t3)}
+    .ba{background:var(--ambg);color:var(--amb)}
+    .bd2{background:var(--gg);color:var(--g)}
+    .sb-foot{padding:11px;border-top:1px solid var(--bd)}
+    .btn-new{width:100%;padding:10px;background:var(--g);border:none;border-radius:var(--rs);color:#000;font-size:13px;font-weight:800;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px}
+    .btn-new:hover{background:var(--ga);transform:translateY(-1px)}
+    .main{flex:1;overflow-y:auto;background:var(--bg)}
+    .empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:14px;color:var(--t3);text-align:center}
+    .empty-ico{font-size:48px}
+    .empty h2{font-size:18px;font-weight:700;color:var(--t2)}
+    .empty p{font-size:13px;max-width:280px;line-height:1.7}
+    .detail{padding:26px 30px;max-width:860px}
+    .det-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:22px}
+    .det-head h1{font-size:21px;font-weight:800;letter-spacing:-.3px;margin-bottom:4px}
+    .det-meta{display:flex;gap:14px;flex-wrap:wrap;color:var(--t2);font-size:12px}
+    .det-meta span{color:var(--t3);margin-right:2px}
+    .btn-edit{padding:7px 14px;background:var(--s2);border:1px solid var(--bdm);border-radius:var(--rs);color:var(--t2);font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap}
+    .btn-edit:hover{border-color:var(--g);color:var(--g)}
+    .stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:20px}
+    .stat{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);padding:13px 10px;text-align:center}
+    .stat-n{font-size:20px;font-weight:800;line-height:1}
+    .stat-l{font-size:10px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-top:3px}
+    .tl-card{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);padding:20px 22px;margin-bottom:20px}
+    .tl-title{font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:20px}
+    .timeline{position:relative}
+    .tl-track{position:absolute;top:18px;left:18px;right:18px;height:2px;background:var(--bd);z-index:0}
+    .tl-fill{height:100%;background:var(--g);border-radius:1px;transition:width .5s ease}
+    .tl-steps{display:flex;justify-content:space-between;position:relative;z-index:1}
+    .tl-step{display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer;flex:1}
+    .tl-c{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;border:2px solid var(--bd);background:var(--s2);transition:all .3s}
+    .tl-c.done{background:var(--g);border-color:var(--g);color:#000;font-weight:800;box-shadow:0 0 14px rgba(0,200,83,.35)}
+    .tl-c.actv{border-color:var(--amb);color:var(--amb);box-shadow:0 0 12px rgba(255,215,64,.28);animation:pamb 2s ease-in-out infinite}
+    .tl-c.pend{color:var(--t3)}
+    @keyframes pamb{0%,100%{box-shadow:0 0 12px rgba(255,215,64,.25)}50%{box-shadow:0 0 20px rgba(255,215,64,.45)}}
+    .tl-lbl{font-size:10px;font-weight:700;text-align:center;color:var(--t3);max-width:70px;line-height:1.3}
+    .tl-lbl.done{color:var(--g)}
+    .tl-lbl.actv{color:var(--amb)}
+    .stages{display:flex;flex-direction:column;gap:11px}
+    .stg{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden;transition:border-color .2s}
+    .stg.s-a{border-color:rgba(255,215,64,.25)}
+    .stg.s-d{border-color:rgba(0,200,83,.18)}
+    .stg-hd{display:flex;align-items:center;justify-content:space-between;padding:14px 17px;cursor:pointer;user-select:none;transition:background .15s}
+    .stg-hd:hover{background:rgba(255,255,255,.02)}
+    .stg-l{display:flex;align-items:center;gap:11px}
+    .stg-ico{width:34px;height:34px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:16px;background:var(--s2);flex-shrink:0}
+    .stg-ico.done{background:rgba(0,200,83,.12)}
+    .stg-ico.actv{background:rgba(255,215,64,.10)}
+    .stg-t{font-size:13px;font-weight:700}
+    .stg-d{font-size:11px;color:var(--t3);margin-top:1px}
+    .pill{padding:3px 9px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.3px}
+    .pp{background:rgba(255,255,255,.06);color:var(--t3)}
+    .pa{background:var(--ambg);color:var(--amb)}
+    .pd{background:var(--gg);color:var(--g)}
+    .chev{color:var(--t3);font-size:15px;transition:transform .2s}
+    .chev.op{transform:rotate(180deg)}
+    .stg-body{border-top:1px solid var(--bd);padding:17px;display:none}
+    .stg-body.op{display:block}
+    .sg{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:13px}
+    .sf{grid-column:1/-1}
+    .lbl{font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.9px;display:block;margin-bottom:4px}
+    .inp,.sel,.ta{width:100%;padding:8px 11px;background:var(--s2);border:1px solid var(--bd);border-radius:var(--rs);color:var(--t1);font-size:13px;font-family:inherit;outline:none;transition:border .2s}
+    .inp:focus,.sel:focus,.ta:focus{border-color:var(--g)}
+    .ta{min-height:72px;resize:vertical}
+    .sel option{background:var(--s2)}
+    .btn-save{padding:8px 17px;background:var(--g);border:none;border-radius:var(--rs);color:#000;font-size:13px;font-weight:800;cursor:pointer;transition:all .2s}
+    .btn-save:hover{background:var(--ga)}
+    .upsec{margin-top:14px;padding-top:14px;border-top:1px solid var(--bd)}
+    .upt{font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.9px;margin-bottom:9px}
+    .drop{border:2px dashed var(--bdm);border-radius:var(--rs);padding:20px;text-align:center;cursor:pointer;transition:all .2s;margin-top:9px}
+    .drop:hover,.drop.ov{border-color:var(--g);background:var(--gg)}
+    .drop-ico{font-size:24px;margin-bottom:5px}
+    .drop-tx{font-size:12px;color:var(--t2)}
+    .drop-h{font-size:11px;color:var(--t3);margin-top:2px}
+    .flist{display:flex;flex-direction:column;gap:7px}
+    .fi{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:var(--s2);border:1px solid var(--bd);border-radius:var(--rs)}
+    .fil{display:flex;align-items:center;gap:9px}
+    .fic{font-size:17px}
+    .fn{font-size:12px;font-weight:600}
+    .fm{font-size:10px;color:var(--t3);margin-top:1px}
+    .fr{display:flex;align-items:center;gap:6px}
+    .btn-dl{display:flex;align-items:center;gap:4px;padding:4px 9px;background:var(--gg);border:1px solid rgba(0,200,83,.28);border-radius:5px;color:var(--g);font-size:10px;font-weight:700;text-decoration:none;transition:all .2s}
+    .btn-dl:hover{background:rgba(0,200,83,.22)}
+    .btn-rm{width:25px;height:25px;display:flex;align-items:center;justify-content:center;border:none;background:transparent;color:var(--t3);cursor:pointer;border-radius:5px;font-size:15px;transition:all .2s}
+    .btn-rm:hover{background:rgba(255,82,82,.1);color:var(--red)}
+    .upwrap{margin-top:8px;padding:9px 12px;background:var(--s2);border:1px solid var(--bd);border-radius:var(--rs);display:none}
+    .uphd{display:flex;justify-content:space-between;font-size:11px;color:var(--t2);margin-bottom:6px}
+    .upbar{height:3px;background:var(--bd);border-radius:2px;overflow:hidden}
+    .upfill{height:100%;background:var(--g);transition:width .25s}
+    .dash{padding:26px 30px}
+    .dash-t{font-size:20px;font-weight:800;margin-bottom:18px}
+    .dstats{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-bottom:22px}
+    .dsc{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);padding:15px;text-align:center}
+    .dsi{font-size:22px;margin-bottom:3px}
+    .dsn{font-size:24px;font-weight:800;line-height:1}
+    .dsl{font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-top:3px}
+    .cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:13px}
+    .cc{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);padding:15px;cursor:pointer;transition:all .2s}
+    .cc:hover{border-color:var(--g);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,200,83,.08)}
+    .cct{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+    .cav{width:36px;height:36px;border-radius:8px;flex-shrink:0;background:linear-gradient(135deg,var(--g) 0%,#004d1f 100%);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;color:#000}
+    .ccn{font-size:13px;font-weight:700}
+    .ccc{font-size:11px;color:var(--t3);margin-top:1px}
+    .mts{display:flex;gap:3px}
+    .ms{flex:1;height:4px;border-radius:2px;background:var(--bd)}
+    .ms.done{background:var(--g)}
+    .ms.actv{background:var(--amb)}
+    .ccf{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
+    .ccs{font-size:11px;color:var(--t3)}
+    .ccp{font-size:11px;font-weight:800;color:var(--g)}
 
-    /* ── LAYOUT ── */
-    .layout { display: flex; flex: 1; overflow: hidden; height: calc(100vh - 58px); }
-
-    /* ── SIDEBAR ── */
-    .sidebar {
-      width: 256px; flex-shrink: 0;
-      background: var(--surface-1);
-      border-right: 1px solid var(--border);
-      display: flex; flex-direction: column;
-      overflow: hidden;
-    }
-    .sidebar-top { padding: 14px 12px 10px; border-bottom: 1px solid var(--border); }
-    .sidebar-label { font-size: 10px; font-weight: 700; color: var(--text-3); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 10px; padding-left: 4px; }
-
-    .search {
-      width: 100%; padding: 8px 11px;
-      background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm);
-      color: var(--text-1); font-size: 13px; font-family: inherit; outline: none; transition: border .2s;
-    }
-    .search::placeholder { color: var(--text-3); }
-    .search:focus { border-color: var(--primary); }
-
-    .client-list { flex: 1; overflow-y: auto; padding: 8px; }
-
-    .c-item {
-      padding: 10px 11px; border-radius: var(--radius-sm);
-      cursor: pointer; transition: background .15s;
-      margin-bottom: 2px; border: 1px solid transparent;
-    }
-    .c-item:hover { background: var(--surface-2); }
-    .c-item.sel { background: var(--primary-glow); border-color: rgba(0,200,83,.25); }
-    .c-name  { font-size: 13px; font-weight: 600; color: var(--text-1); margin-bottom: 2px; }
-    .c-co    { font-size: 11px; color: var(--text-3); }
-    .c-badge {
-      display: inline-flex; align-items: center; gap: 3px;
-      padding: 2px 7px; border-radius: 20px; font-size: 10px; font-weight: 700;
-      margin-top: 5px;
-    }
-    .b-pend { background: rgba(255,255,255,.06); color: var(--text-3); }
-    .b-actv { background: var(--amber-glow); color: var(--amber); }
-    .b-done { background: var(--primary-glow); color: var(--primary); }
-
-    .sidebar-foot { padding: 11px; border-top: 1px solid var(--border); }
-    .btn-new {
-      width: 100%; padding: 10px;
-      background: var(--primary); border: none; border-radius: var(--radius-sm);
-      color: #000; font-size: 13px; font-weight: 800;
-      cursor: pointer; transition: all .2s;
-      display: flex; align-items: center; justify-content: center; gap: 6px;
-    }
-    .btn-new:hover { background: var(--accent); transform: translateY(-1px); }
-
-    /* ── MAIN ── */
-    .main { flex: 1; overflow-y: auto; background: var(--bg); }
-
-    /* ── EMPTY ── */
-    .empty {
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      height: 100%; gap: 14px; color: var(--text-3);
-      text-align: center;
-    }
-    .empty-icon { font-size: 48px; }
-    .empty h2 { font-size: 18px; font-weight: 700; color: var(--text-2); }
-    .empty p  { font-size: 13px; max-width: 280px; line-height: 1.7; }
-
-    /* ── CLIENT DETAIL ── */
-    .detail { padding: 28px 32px; max-width: 860px; }
-
-    .det-head {
-      display: flex; align-items: flex-start;
-      justify-content: space-between; margin-bottom: 24px;
-    }
-    .det-head h1 { font-size: 22px; font-weight: 800; letter-spacing: -.3px; margin-bottom: 5px; }
-    .det-meta { display: flex; gap: 16px; flex-wrap: wrap; color: var(--text-2); font-size: 12px; }
-    .det-meta span { color: var(--text-3); margin-right: 3px; }
-
-    .btn-edit {
-      padding: 7px 15px;
-      background: var(--surface-2); border: 1px solid var(--border-md);
-      border-radius: var(--radius-sm); color: var(--text-2);
-      font-size: 12px; font-weight: 600; cursor: pointer; transition: all .2s; white-space: nowrap;
-    }
-    .btn-edit:hover { border-color: var(--primary); color: var(--primary); }
-
-    /* ── STATS ROW ── */
-    .stats { display: grid; grid-template-columns: repeat(5,1fr); gap: 10px; margin-bottom: 22px; }
-    .stat {
-      background: var(--surface-1); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 14px 10px; text-align: center;
-    }
-    .stat-n { font-size: 22px; font-weight: 800; line-height: 1; }
-    .stat-l { font-size: 10px; font-weight: 600; color: var(--text-3); text-transform: uppercase; letter-spacing: .6px; margin-top: 4px; }
-
-    /* ── TIMELINE CARD ── */
-    .tl-card {
-      background: var(--surface-1); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 22px 24px; margin-bottom: 22px;
-    }
-    .tl-card-title { font-size: 10px; font-weight: 700; color: var(--text-3); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 22px; }
-
-    .timeline { position: relative; }
-    .tl-track {
-      position: absolute; top: 19px; left: 19px; right: 19px;
-      height: 2px; background: var(--border); z-index: 0;
-    }
-    .tl-fill { height: 100%; background: var(--primary); border-radius: 1px; transition: width .5s ease; }
-
-    .tl-steps { display: flex; justify-content: space-between; position: relative; z-index: 1; }
-    .tl-step  { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; flex: 1; }
-
-    .tl-circle {
-      width: 38px; height: 38px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 15px; border: 2px solid var(--border);
-      background: var(--surface-2); transition: all .3s;
-    }
-    .tl-circle.done {
-      background: var(--primary); border-color: var(--primary); color: #000; font-weight: 800;
-      box-shadow: 0 0 16px rgba(0,200,83,.35);
-    }
-    .tl-circle.actv {
-      border-color: var(--amber); color: var(--amber);
-      box-shadow: 0 0 14px rgba(255,215,64,.28);
-      animation: pulse-amber 2s ease-in-out infinite;
-    }
-    .tl-circle.pend { color: var(--text-3); }
-
-    @keyframes pulse-amber {
-      0%,100% { box-shadow: 0 0 14px rgba(255,215,64,.25); }
-      50%      { box-shadow: 0 0 22px rgba(255,215,64,.45); }
-    }
-
-    .tl-label { font-size: 10px; font-weight: 700; text-align: center; color: var(--text-3); max-width: 72px; line-height: 1.3; }
-    .tl-label.done { color: var(--primary); }
-    .tl-label.actv { color: var(--amber); }
-
-    /* ── STAGE CARDS ── */
-    .stages { display: flex; flex-direction: column; gap: 12px; }
-
-    .stage {
-      background: var(--surface-1); border: 1px solid var(--border);
-      border-radius: var(--radius); overflow: hidden; transition: border-color .2s;
-    }
-    .stage.s-actv { border-color: rgba(255,215,64,.25); }
-    .stage.s-done { border-color: rgba(0,200,83,.18); }
-
-    .stage-head {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 15px 18px; cursor: pointer; user-select: none; transition: background .15s;
-    }
-    .stage-head:hover { background: rgba(255,255,255,.02); }
-
-    .stage-lft { display: flex; align-items: center; gap: 12px; }
-    .stage-ico {
-      width: 36px; height: 36px; border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 17px; background: var(--surface-2); flex-shrink: 0;
-    }
-    .stage-ico.done { background: rgba(0,200,83,.12); }
-    .stage-ico.actv { background: rgba(255,215,64,.10); }
-
-    .stage-ttl { font-size: 13px; font-weight: 700; }
-    .stage-desc { font-size: 11px; color: var(--text-3); margin-top: 1px; }
-
-    .pill {
-      padding: 3px 10px; border-radius: 20px;
-      font-size: 10px; font-weight: 700; letter-spacing: .3px;
-    }
-    .p-pend { background: rgba(255,255,255,.06); color: var(--text-3); }
-    .p-actv { background: var(--amber-glow); color: var(--amber); }
-    .p-done { background: var(--primary-glow); color: var(--primary); }
-
-    .chev { color: var(--text-3); font-size: 16px; transition: transform .2s; }
-    .chev.open { transform: rotate(180deg); }
-
-    .stage-body {
-      border-top: 1px solid var(--border);
-      padding: 18px; display: none;
-    }
-    .stage-body.open { display: block; }
-
-    .s-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
-    .s-full { grid-column: 1 / -1; }
-
-    .lbl {
-      font-size: 10px; font-weight: 700; color: var(--text-3);
-      text-transform: uppercase; letter-spacing: .9px;
-      display: block; margin-bottom: 5px;
-    }
-    .inp, .sel, .ta {
-      width: 100%; padding: 9px 11px;
-      background: var(--surface-2); border: 1px solid var(--border);
-      border-radius: var(--radius-sm); color: var(--text-1);
-      font-size: 13px; font-family: inherit; outline: none; transition: border .2s;
-    }
-    .inp:focus, .sel:focus, .ta:focus { border-color: var(--primary); }
-    .ta { min-height: 76px; resize: vertical; }
-    .sel option { background: var(--surface-2); }
-
-    .btn-save {
-      padding: 8px 18px;
-      background: var(--primary); border: none; border-radius: var(--radius-sm);
-      color: #000; font-size: 13px; font-weight: 800;
-      cursor: pointer; transition: all .2s;
-    }
-    .btn-save:hover { background: var(--accent); }
-
-    /* ── UPLOAD ── */
-    .upload-sec { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
-    .upload-ttl { font-size: 10px; font-weight: 700; color: var(--text-3); text-transform: uppercase; letter-spacing: .9px; margin-bottom: 10px; }
-
-    .drop {
-      border: 2px dashed var(--border-md); border-radius: var(--radius-sm);
-      padding: 22px; text-align: center; cursor: pointer; transition: all .2s;
-      margin-top: 10px;
-    }
-    .drop:hover, .drop.over { border-color: var(--primary); background: var(--primary-glow); }
-    .drop-ico { font-size: 26px; margin-bottom: 6px; }
-    .drop-txt { font-size: 12px; color: var(--text-2); }
-    .drop-hint { font-size: 11px; color: var(--text-3); margin-top: 3px; }
-
-    .file-list { display: flex; flex-direction: column; gap: 7px; }
-    .f-item {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 9px 13px;
-      background: var(--surface-2); border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-    }
-    .f-left  { display: flex; align-items: center; gap: 10px; }
-    .f-ico   { font-size: 18px; }
-    .f-name  { font-size: 12px; font-weight: 600; color: var(--text-1); }
-    .f-meta  { font-size: 10px; color: var(--text-3); margin-top: 1px; }
-    .f-right { display: flex; align-items: center; gap: 7px; }
-
-    .btn-drive-link {
-      display: flex; align-items: center; gap: 5px;
-      padding: 4px 10px;
-      background: var(--primary-glow); border: 1px solid rgba(0,200,83,.28);
-      border-radius: 6px; color: var(--primary);
-      font-size: 10px; font-weight: 700;
-      cursor: pointer; text-decoration: none; transition: all .2s;
-    }
-    .btn-drive-link:hover { background: rgba(0,200,83,.22); }
-
-    .btn-del {
-      width: 26px; height: 26px;
-      display: flex; align-items: center; justify-content: center;
-      border: none; background: transparent; color: var(--text-3);
-      cursor: pointer; border-radius: 6px; font-size: 16px; transition: all .2s;
-    }
-    .btn-del:hover { background: rgba(255,82,82,.1); color: var(--red); }
-
-    .up-bar-wrap {
-      margin-top: 9px; padding: 10px 13px;
-      background: var(--surface-2); border: 1px solid var(--border);
-      border-radius: var(--radius-sm); display: none;
-    }
-    .up-bar-head { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-2); margin-bottom: 7px; }
-    .up-bar { height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; }
-    .up-bar-fill { height: 100%; background: var(--primary); transition: width .25s ease; }
-
-    /* ── DASHBOARD ── */
-    .dashboard { padding: 28px 32px; }
-    .dash-title { font-size: 20px; font-weight: 800; margin-bottom: 20px; }
-
-    .dash-stats { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px,1fr)); gap: 10px; margin-bottom: 24px; }
-    .ds-card {
-      background: var(--surface-1); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 16px; text-align: center;
-    }
-    .ds-ico  { font-size: 22px; margin-bottom: 4px; }
-    .ds-num  { font-size: 26px; font-weight: 800; line-height: 1; }
-    .ds-lbl  { font-size: 10px; font-weight: 700; color: var(--text-3); text-transform: uppercase; letter-spacing: .6px; margin-top: 4px; }
-
-    .client-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap: 14px; }
-    .c-card {
-      background: var(--surface-1); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 16px;
-      cursor: pointer; transition: all .2s;
-    }
-    .c-card:hover { border-color: var(--primary); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,200,83,.08); }
-
-    .c-card-top { display: flex; align-items: center; gap: 11px; margin-bottom: 14px; }
-    .c-avatar {
-      width: 38px; height: 38px; border-radius: 9px; flex-shrink: 0;
-      background: linear-gradient(135deg, var(--primary) 0%, #005c25 100%);
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 900; font-size: 15px; color: #000;
-    }
-    .c-card-n { font-size: 13px; font-weight: 700; }
-    .c-card-co { font-size: 11px; color: var(--text-3); margin-top: 2px; }
-
-    .mini-tl { display: flex; gap: 4px; }
-    .mini-s { flex: 1; height: 4px; border-radius: 2px; background: var(--border); }
-    .mini-s.done { background: var(--primary); }
-    .mini-s.actv { background: var(--amber); }
-
-    .c-card-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 9px; }
-    .c-card-stage { font-size: 11px; color: var(--text-3); }
-    .c-card-pct   { font-size: 11px; font-weight: 800; color: var(--primary); }
+    /* ══════════════════════════════════════════
+       BLOCKS (FEEDBACK)
+    ══════════════════════════════════════════ */
+    .blocks-view{flex:1;overflow-y:auto;padding:28px 32px}
+    .bv-title{font-size:20px;font-weight:800;margin-bottom:6px}
+    .bv-sub{font-size:13px;color:var(--t2);margin-bottom:24px}
+    .blk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-bottom:32px}
+    .blk-card{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);padding:18px;cursor:pointer;transition:all .2s}
+    .blk-card:hover{border-color:var(--g);transform:translateY(-2px)}
+    .blk-card.sel{border-color:var(--g);background:var(--gg)}
+    .blk-top{display:flex;align-items:center;gap:11px;margin-bottom:10px}
+    .blk-ico{font-size:28px}
+    .blk-nm{font-size:13px;font-weight:700;line-height:1.3}
+    .blk-ct{font-size:11px;color:var(--t3);margin-top:2px}
+    .blk-bar-wrap{height:4px;background:var(--bd);border-radius:2px;overflow:hidden;margin-top:10px}
+    .blk-bar-fill{height:100%;background:var(--g);border-radius:2px}
+    .blk-detail{background:var(--s1);border:1px solid var(--bdm);border-radius:var(--r);overflow:hidden}
+    .blk-detail-head{padding:16px 20px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between}
+    .blk-detail-head h3{font-size:15px;font-weight:800}
+    .blk-search{padding:6px 10px;background:var(--s2);border:1px solid var(--bd);border-radius:var(--rs);color:var(--t1);font-size:12px;font-family:inherit;outline:none;transition:border .2s;width:200px}
+    .blk-search:focus{border-color:var(--g)}
+    .tbl-wrap{overflow-x:auto}
+    table{width:100%;border-collapse:collapse;font-size:12px}
+    thead tr{background:var(--s2)}
+    th{padding:10px 14px;text-align:left;font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.8px;white-space:nowrap;border-bottom:1px solid var(--bd)}
+    td{padding:10px 14px;border-bottom:1px solid var(--bd);vertical-align:middle}
+    tr:last-child td{border-bottom:none}
+    tr:hover td{background:rgba(255,255,255,.02)}
+    .nps-pill{display:inline-flex;align-items:center;justify-content:center;width:32px;height:22px;border-radius:5px;font-size:11px;font-weight:800}
+    .nps-p{background:rgba(0,200,83,.15);color:var(--g)}
+    .nps-n{background:rgba(255,215,64,.15);color:var(--amb)}
+    .nps-d{background:rgba(255,82,82,.15);color:var(--red)}
+    .nps-null{background:var(--bd);color:var(--t3)}
+    .cls-pill{padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700}
+    .cls-p{background:rgba(0,200,83,.12);color:var(--g)}
+    .cls-n{background:var(--ambg);color:var(--amb)}
+    .cls-d{background:rgba(255,82,82,.1);color:var(--red)}
+    .status-dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:5px}
+    .sd-a{background:var(--g)}
+    .sd-i{background:var(--t3)}
+    .period-head{text-align:center}
+    .no-resp{color:var(--t3);font-size:11px}
 
     /* ── MODAL ── */
-    .overlay {
-      position: fixed; inset: 0; background: rgba(0,0,0,.68);
-      display: flex; align-items: center; justify-content: center;
-      z-index: 500; opacity: 0; pointer-events: none; transition: opacity .2s;
-      backdrop-filter: blur(5px);
-    }
-    .overlay.on { opacity: 1; pointer-events: all; }
-
-    .modal {
-      background: var(--surface-1); border: 1px solid var(--border-md);
-      border-radius: 16px; width: 460px; max-width: calc(100vw - 24px);
-      max-height: 85vh; overflow-y: auto;
-      transform: translateY(18px); transition: transform .2s;
-    }
-    .overlay.on .modal { transform: translateY(0); }
-
-    .modal-head {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 18px 22px; border-bottom: 1px solid var(--border);
-    }
-    .modal-head h2 { font-size: 16px; font-weight: 800; }
-
-    .btn-x {
-      width: 30px; height: 30px;
-      display: flex; align-items: center; justify-content: center;
-      border: none; background: var(--surface-2); color: var(--text-2);
-      border-radius: 7px; cursor: pointer; font-size: 17px; transition: all .2s;
-    }
-    .btn-x:hover { background: var(--surface-3); color: var(--text-1); }
-
-    .modal-body { padding: 22px; display: flex; flex-direction: column; gap: 13px; }
-    .modal-foot {
-      display: flex; justify-content: flex-end; gap: 9px;
-      padding: 14px 22px; border-top: 1px solid var(--border);
-    }
-
-    .btn-cancel {
-      padding: 8px 18px;
-      background: var(--surface-2); border: 1px solid var(--border-md);
-      border-radius: var(--radius-sm); color: var(--text-2);
-      font-size: 13px; font-weight: 600; cursor: pointer; transition: color .2s;
-    }
-    .btn-cancel:hover { color: var(--text-1); }
+    .ov{position:fixed;inset:0;background:rgba(0,0,0,.68);display:flex;align-items:center;justify-content:center;z-index:500;opacity:0;pointer-events:none;transition:opacity .2s;backdrop-filter:blur(5px)}
+    .ov.on{opacity:1;pointer-events:all}
+    .modal{background:var(--s1);border:1px solid var(--bdm);border-radius:16px;width:460px;max-width:calc(100vw - 24px);max-height:85vh;overflow-y:auto;transform:translateY(18px);transition:transform .2s}
+    .ov.on .modal{transform:translateY(0)}
+    .mhd{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid var(--bd)}
+    .mhd h2{font-size:16px;font-weight:800}
+    .btn-x{width:30px;height:30px;display:flex;align-items:center;justify-content:center;border:none;background:var(--s2);color:var(--t2);border-radius:7px;cursor:pointer;font-size:17px;transition:all .2s}
+    .btn-x:hover{background:var(--s3);color:var(--t1)}
+    .mbody{padding:22px;display:flex;flex-direction:column;gap:12px}
+    .mfoot{display:flex;justify-content:flex-end;gap:9px;padding:14px 22px;border-top:1px solid var(--bd)}
+    .btn-cancel{padding:8px 17px;background:var(--s2);border:1px solid var(--bdm);border-radius:var(--rs);color:var(--t2);font-size:13px;font-weight:600;cursor:pointer;transition:color .2s}
+    .btn-cancel:hover{color:var(--t1)}
 
     /* ── TOAST ── */
-    .toast-wrap { position: fixed; bottom: 22px; right: 22px; display: flex; flex-direction: column; gap: 7px; z-index: 1000; }
-    .toast {
-      padding: 11px 16px; border-radius: 10px;
-      font-size: 13px; font-weight: 600; color: #000;
-      display: flex; align-items: center; gap: 7px;
-      animation: tin .28s ease; white-space: nowrap;
-    }
-    .toast.ok  { background: var(--primary); box-shadow: 0 4px 18px rgba(0,200,83,.3); }
-    .toast.err { background: var(--red);     box-shadow: 0 4px 18px rgba(255,82,82,.3); color: #fff; }
-    @keyframes tin { from { transform: translateX(110%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    .tc{position:fixed;bottom:20px;right:20px;display:flex;flex-direction:column;gap:7px;z-index:1000}
+    .toast{padding:10px 15px;border-radius:10px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:7px;animation:tin .28s ease;white-space:nowrap}
+    .tok{background:var(--g);box-shadow:0 4px 16px rgba(0,200,83,.3);color:#000}
+    .terr{background:var(--red);box-shadow:0 4px 16px rgba(255,82,82,.3);color:#fff}
+    @keyframes tin{from{transform:translateX(110%);opacity:0}to{transform:translateX(0);opacity:1}}
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 720px) {
-      .sidebar { width: 200px; }
-      .stats   { grid-template-columns: repeat(3, 1fr); }
-      .s-grid  { grid-template-columns: 1fr; }
+    @media(max-width:720px){
+      .home-cards{grid-template-columns:1fr}
+      .home-stats{grid-template-columns:repeat(2,1fr)}
+      .sidebar{width:200px}
+      .stats{grid-template-columns:repeat(3,1fr)}
+      .sg{grid-template-columns:1fr}
     }
-    @media (max-width: 560px) {
-      .sidebar { display: none; }
-      .detail  { padding: 16px; }
-      .dashboard { padding: 16px; }
+    @media(max-width:560px){
+      .sidebar{display:none}
+      .detail,.dash{padding:14px}
+      .blocks-view{padding:14px}
     }
   </style>
 </head>
 <body>
 
-<!-- ══ HEADER ══════════════════════════════════════ -->
-<header class="header">
-  <div class="logo">
-    <div class="logo-mark">AG</div>
+<header class="hdr">
+  <a class="logo" onclick="goHome()" href="#">
+    <div class="lmark">AG</div>
     <div>
-      <div class="logo-brand">AtivGreen</div>
-      <div class="logo-sub">Workloung</div>
+      <div class="lbrand">AtivGreen</div>
+      <div class="lsub">Workloung</div>
     </div>
-  </div>
-  <div class="header-title">Painel de Feedback &amp; Workflow</div>
-  <button class="btn-gdrive" id="btnGdrive" onclick="handleGAuth()">
+  </a>
+  <nav class="hdr-nav">
+    <button class="hdr-btn" id="btn-home" onclick="goHome()">Home</button>
+    <button class="hdr-btn" id="btn-clients" onclick="goClients()">Clientes</button>
+    <button class="hdr-btn" id="btn-blocks" onclick="goBlocks()">Feedback</button>
+  </nav>
+  <button class="btn-gd" id="btnGd" onclick="handleGAuth()">
     <span class="gdot" id="gdot"></span>
-    <span id="gLabel">Conectar Google Drive</span>
+    <span id="gLabel">Google Drive</span>
   </button>
 </header>
 
-<!-- ══ LAYOUT ══════════════════════════════════════ -->
-<div class="layout">
-
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <div class="sidebar-top">
-      <div class="sidebar-label">Clientes</div>
-      <input class="search" id="srch" placeholder="Buscar…" oninput="filterClients(this.value)">
+<!-- ══ HOME ══════════════════════════════ -->
+<div class="view" id="v-home">
+  <div class="home">
+    <div class="home-hero">
+      <h1>Bem-vindo ao <span>Workloung</span></h1>
+      <p>Central de controle de feedback e workflow de clientes AtivGreen. Selecione o que deseja acessar.</p>
     </div>
-    <div class="client-list" id="cList"></div>
-    <div class="sidebar-foot">
-      <button class="btn-new" onclick="openOverlay('oNew')">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="12" y1="4" x2="12" y2="20"/><line x1="4" y1="12" x2="20" y2="12"/></svg>
-        Novo Cliente
-      </button>
+    <div class="home-cards">
+      <div class="hcard" onclick="goClients()">
+        <div class="hcard-ico">👥</div>
+        <h2>Painel de Clientes</h2>
+        <p>Acompanhe o workflow de cada cliente pelas etapas: Criação de Formulário → Envio → Resposta → Plano de Ação → Execução.</p>
+        <div class="hcard-arr">Abrir painel <span>→</span></div>
+      </div>
+      <div class="hcard" onclick="goBlocks()">
+        <div class="hcard-ico">📊</div>
+        <h2>Planilhas de Feedback</h2>
+        <p>Visualize as respostas NPS organizadas por bloco de serviço. Veja datas, notas e classificações de cada cliente.</p>
+        <div class="hcard-arr">Ver planilhas <span>→</span></div>
+      </div>
     </div>
-  </aside>
-
-  <!-- MAIN -->
-  <main class="main" id="main"></main>
+    <div class="home-stats" id="homeStats"></div>
+  </div>
 </div>
 
-<!-- ══ MODAL: Novo / Editar Cliente ══════════════════ -->
-<div class="overlay" id="oNew">
+<!-- ══ CLIENTS ════════════════════════════ -->
+<div class="view" id="v-clients">
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sb-top">
+        <div class="sb-lbl">Clientes</div>
+        <input class="srch" id="srch" placeholder="Buscar…" oninput="filterClients(this.value)">
+      </div>
+      <div class="clist" id="cList"></div>
+      <div class="sb-foot">
+        <button class="btn-new" onclick="openOv('oNew')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="12" y1="4" x2="12" y2="20"/><line x1="4" y1="12" x2="20" y2="12"/></svg>
+          Novo Cliente
+        </button>
+      </div>
+    </aside>
+    <main class="main" id="main"></main>
+  </div>
+</div>
+
+<!-- ══ BLOCKS ════════════════════════════ -->
+<div class="view" id="v-blocks">
+  <div class="blocks-view">
+    <div class="bv-title">Planilhas de Feedback por Bloco de Serviço</div>
+    <div class="bv-sub">Selecione um bloco para ver os clientes e suas notas NPS.</div>
+    <div class="blk-grid" id="blkGrid"></div>
+    <div id="blkDetail"></div>
+  </div>
+</div>
+
+<!-- ══ MODAL: Novo/Editar Cliente ════════ -->
+<div class="ov" id="oNew">
   <div class="modal">
-    <div class="modal-head">
-      <h2 id="modalTitle">Novo Cliente</h2>
-      <button class="btn-x" onclick="closeOverlay('oNew')">×</button>
+    <div class="mhd">
+      <h2 id="mTitle">Novo Cliente</h2>
+      <button class="btn-x" onclick="closeOv('oNew')">×</button>
     </div>
-    <div class="modal-body">
-      <div class="form-group">
-        <label class="lbl">Nome do Cliente *</label>
-        <input class="inp" id="fName" placeholder="Ex: João Silva">
-      </div>
-      <div class="form-group">
-        <label class="lbl">Empresa</label>
-        <input class="inp" id="fCo" placeholder="Ex: Empresa LTDA">
-      </div>
-      <div class="form-group">
-        <label class="lbl">Projeto</label>
-        <input class="inp" id="fProj" placeholder="Ex: Consultoria Q1 2024">
-      </div>
-      <div class="form-group">
-        <label class="lbl">Responsável</label>
-        <input class="inp" id="fOwner" placeholder="Ex: Maria Oliveira">
-      </div>
-      <div class="form-group">
-        <label class="lbl">E-mail do Cliente</label>
-        <input class="inp" type="email" id="fEmail" placeholder="cliente@empresa.com">
-      </div>
+    <div class="mbody">
+      <div><label class="lbl">Nome do Cliente *</label><input class="inp" id="fName" placeholder="Ex: João Silva"></div>
+      <div><label class="lbl">Empresa</label><input class="inp" id="fCo" placeholder="Ex: Mercado Livre"></div>
+      <div><label class="lbl">Projeto / Área</label><input class="inp" id="fProj" placeholder="Ex: Ads - T1 & T2"></div>
+      <div><label class="lbl">Responsável</label><input class="inp" id="fOwner" placeholder="Ex: Maria Oliveira"></div>
+      <div><label class="lbl">E-mail</label><input class="inp" type="email" id="fEmail" placeholder="cliente@empresa.com"></div>
     </div>
-    <div class="modal-foot">
-      <button class="btn-cancel" onclick="closeOverlay('oNew')">Cancelar</button>
-      <button class="btn-save" id="modalSaveBtn" onclick="saveClient()">Criar Cliente</button>
+    <div class="mfoot">
+      <button class="btn-cancel" onclick="closeOv('oNew')">Cancelar</button>
+      <button class="btn-save" id="mSaveBtn" onclick="saveClient()">Criar Cliente</button>
     </div>
   </div>
 </div>
 
-<!-- ══ TOASTS ══════════════════════════════════════ -->
-<div class="toast-wrap" id="toasts"></div>
-
-<!-- hidden file input -->
-<input type="file" id="fileInput" style="display:none" multiple onchange="onFilesPicked(event)">
+<div class="tc" id="tc"></div>
+<input type="file" id="fi" style="display:none" multiple onchange="onPick(event)">
 
 <script>
-// ── CONFIG (fill in your Google Cloud credentials) ───────────────────────────
-const G_CLIENT_ID  = 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com';
-const G_FOLDER_ID  = ''; // optional Drive folder ID for uploads
+// ── CONFIG ───────────────────────────────────────────────────
+const G_CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com';
+const G_FOLDER_ID = '';
 
-// ── STAGE DEFINITIONS ────────────────────────────────────────────────────────
+// ── STAGE DEFS ───────────────────────────────────────────────
 const STAGES = [
-  { id: 'form',    icon: '📋', label: 'Criação de Formulário',  desc: 'Elaboração do formulário de feedback',            hasUpload: false },
-  { id: 'send',    icon: '📤', label: 'Envio',                  desc: 'Envio do formulário para o cliente',              hasUpload: false },
-  { id: 'reply',   icon: '📥', label: 'Resposta',               desc: 'Recebimento e upload da resposta de feedback',    hasUpload: true  },
-  { id: 'plan',    icon: '📊', label: 'Plano de Ação',          desc: 'Elaboração do plano baseado no feedback',         hasUpload: false },
-  { id: 'exec',    icon: '⚡', label: 'Execução',               desc: 'Execução e acompanhamento do plano de ação',     hasUpload: false },
+  {id:'form',  icon:'📋',label:'Criação de Formulário', desc:'Elaboração do formulário de feedback',         up:false},
+  {id:'send',  icon:'📤',label:'Envio',                 desc:'Envio do formulário ao cliente',              up:false},
+  {id:'reply', icon:'📥',label:'Resposta',              desc:'Recebimento e upload da resposta de feedback', up:true },
+  {id:'plan',  icon:'📊',label:'Plano de Ação',         desc:'Elaboração do plano baseado no feedback',     up:false},
+  {id:'exec',  icon:'⚡',label:'Execução',              desc:'Execução e acompanhamento do plano',          up:false},
 ];
 
-// ── STATE ────────────────────────────────────────────────────────────────────
-const S = {
-  clients: [],
-  sel: null,       // selected client id
-  open: null,      // expanded stage id
-  gToken: null,
-  editId: null,    // id being edited in modal
-};
+// ── SERVICE BLOCKS ───────────────────────────────────────────
+const BLOCK_DEFS = [
+  {key:'AV + Atendimento + Design',             label:'Atendimento + Design + AV',                    icon:'🎬'},
+  {key:'AV + Atendimento + Design + Operação',  label:'Atendimento + Design + Operação + AV',         icon:'📡'},
+  {key:'Atendimento + Design',                  label:'Atendimento + Design',                         icon:'🎨'},
+  {key:'Atendimento + Design + Estratégia + Operação', label:'Atendimento + Design + Estratégia + Operação',icon:'🚀'},
+  {key:'Atendimento + Design + Operação',       label:'Atendimento + Design + Operação',              icon:'⚙️'},
+  {key:'Atendimento + Operação',                label:'Atendimento + Operação',                       icon:'🔧'},
+  {key:'Atendimento + Operação de Moderação',   label:'Atendimento + Operação de Moderação',          icon:'🛡️'},
+  {key:'Recurso Humano',                        label:'Recurso Humano',                               icon:'👥'},
+];
 
-let _uploadStage = null;
+const PERIODS = ['Q2 2026 — Maio','Q3 2026 — Setembro','Q1 2027 — Janeiro','Q2 2027 — Abril','Q3 2027 — Julho'];
 
-// ── PERSISTENCE ─────────────────────────────────────────────────────────────
-const STORE_KEY = 'wl_v1';
-function save() { localStorage.setItem(STORE_KEY, JSON.stringify({ clients: S.clients })); }
-function load() {
-  try {
-    const d = JSON.parse(localStorage.getItem(STORE_KEY) || '{}');
-    S.clients = d.clients || [];
-  } catch {}
+// ── SEED DATA (from spreadsheet) ─────────────────────────────
+const SEED = [{"id": 1, "empresa": "Mercado Livre", "bu": "SGG", "area": "Ads - T1 & T2", "nome": "Alex Lemos", "email": "alex.alemos@mercadolivre.com", "cargo": "CSM", "servico": "Atendimento + Design + Estratégia + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 2, "empresa": "Mercado Livre", "bu": "Merch", "area": "Site Merch & Promotions Marketplace Brazil", "nome": "Aline Martins", "email": "aline.lmartins@mercadolivre.com", "cargo": "Manager", "servico": "Atendimento + Design + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 3, "empresa": "Mercado Livre", "bu": "Growth", "area": "Ads - T1 & T2", "nome": "Ana Luiza Nunes", "email": "luiza.couto@mercadolivre.com", "cargo": "CP", "servico": "Atendimento + Design + Estratégia + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 4, "empresa": "Mercado Livre", "bu": "GROWTH (Sellers)", "area": "Ads - T1 & T2", "nome": "Ana Osorio", "email": "anabeatriz.osorio@mercadolivre.com", "cargo": "CP", "servico": "Atendimento + Design + Estratégia + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 5, "empresa": "Mercado Livre", "bu": "Fashion", "area": "Ads - T1 & T2", "nome": "Ana Paula Marques Maia", "email": "ana.maia@mercadolivre.com", "cargo": "CSM", "servico": "Atendimento + Design + Estratégia + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 6, "empresa": "GWM", "bu": "App operations | Website | CRM", "area": "Ecommerce", "nome": "Andre Lembo", "email": "andre.lembo@gwmmotors.com.br", "cargo": "Specialist", "servico": "Atendimento + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 7, "empresa": "Mercado Livre", "bu": "Motors", "area": "Marketplace VIS", "nome": "Andreia Cristina Campos Ponte", "email": "andreia.ponte@mercadolivre.com", "cargo": "Sr Analyst", "servico": "Atendimento + Design + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": "21/05", "nps": 10.0}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": 10.0, "classificacao": "Promotor", "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 8, "empresa": "Mercado Livre", "bu": "Non endemic", "area": "Ads - T1 & T2", "nome": "Arthur Ribeiro", "email": "arthur.aribeiro@mercadolivre.com", "cargo": "CP", "servico": "Atendimento + Design + Estratégia + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 9, "empresa": "Mercado Livre", "bu": "Home", "area": "Ads - T1 & T2", "nome": "Bruna Prado", "email": "bruna.pradox@mercadolivre.com", "cargo": "CSM", "servico": "Atendimento + Design + Estratégia + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 10, "empresa": "Mercado Livre", "bu": "CPG", "area": "Ads - T1 & T2", "nome": "Bruna Rodrigues", "email": "bruna.brodrigues@mercadolivre.com", "cargo": "CP", "servico": "Atendimento + Design + Estratégia + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 11, "empresa": "Mercado Livre", "bu": "GROWTH (Sellers)", "area": "Ads - T1 & T2", "nome": "Bruno da Mata", "email": "bruno.dmata@mercadolivre.com", "cargo": "CP", "servico": "Atendimento + Design + Estratégia + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 12, "empresa": "Mercado Livre", "bu": "Motors", "area": "Marketplace VIS", "nome": "Bruno Everton Sa Santos", "email": "bruno.ssantos@mercadolivre.com", "cargo": "Sr Analyst", "servico": "Atendimento + Design + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 13, "empresa": "Mercado Livre", "bu": "VIS Latam", "area": "Marketing Commerce VIS", "nome": "Bruno Pereira Da Luz", "email": "bruno.luz@mercadolivre.com", "cargo": "Specialist", "servico": "Atendimento + Design + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 14, "empresa": "Mercado Livre", "bu": "Engage", "area": "Marketing Engagement & Growth", "nome": "Camila Aylen Tolot", "email": "camila.tolot@mercadolibre.com", "cargo": "SSr Analyst", "servico": "Atendimento + Design", "idioma": "ES", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": "19/05", "nps": 2.0}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": 2.0, "classificacao": "Detrator", "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 15, "empresa": "Mercado Livre", "bu": "SGG", "area": "Ads - T1 & T2", "nome": "Camila Kiseliauska", "email": "camila.kiseliauskas@mercadolivre.com", "cargo": "CP", "servico": "Atendimento + Design + Estratégia + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 16, "empresa": "Mercado Livre", "bu": "Tech", "area": "Ads - T1 & T2", "nome": "Carolina Dias", "email": "carolina.cdias@mercadolivre.com", "cargo": "Expert", "servico": "Atendimento + Design + Estratégia + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 17, "empresa": "Mercado Livre", "bu": "TECH", "area": "Ads - T1 & T2", "nome": "Carolina Dias Paulo", "email": "carolina.cdias@mercadolivre.com", "cargo": "CP", "servico": "Atendimento + Design + Estratégia + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 18, "empresa": "Mercado Livre", "bu": "HI", "area": "Ads - T1 & T2", "nome": "Christian Lopes Hambur", "email": "christian.hamburg@mercadolivre.com", "cargo": "CP", "servico": "Atendimento + Design + Estratégia + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 19, "empresa": "Mercado Livre", "bu": "Engage", "area": "Marketing Engagement & Growth", "nome": "Clara Sabarot", "email": "clara.sabarots@mercadolibre.com", "cargo": "", "servico": "Atendimento + Design", "idioma": "ES", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": "21/05", "nps": 8.0}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": 8.0, "classificacao": "Neutro", "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 20, "empresa": "Mercado Livre", "bu": "Growth", "area": "Ads - T1 & T2", "nome": "Daniela Lopes", "email": "daniela.lopes@mercadolivre.com", "cargo": "CSM", "servico": "Atendimento + Design + Estratégia + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 21, "empresa": "Mercado Livre", "bu": "Top Brands", "area": "Ads - T1 & T2", "nome": "Daniela Vallejo Keller (Dada)", "email": "daniela.keller@mercadolivre.com", "cargo": "Sr Manager", "servico": "Atendimento + Design + Estratégia + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 22, "empresa": "Mercado Livre", "bu": "Safety", "area": "SHE", "nome": "Daniele Barbosa Viana", "email": "daniele.viana@mercadolivre.com", "cargo": "Analyst", "servico": "Atendimento + Design", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 23, "empresa": "Mercado Livre", "bu": "Safety", "area": "SHE", "nome": "Antonio Carlos de Souza Filho", "email": "antoniocarlos.sousa@mercadolivre.com", "cargo": "Manager", "servico": "Atendimento + Design", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 24, "empresa": "Mercado Livre", "bu": "Safety", "area": "SHE", "nome": "Fabiana Carolina Macedo", "email": "ext_fabimace@mercadolivre.com", "cargo": "ext partner", "servico": "Atendimento + Design", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 25, "empresa": "Mercado Livre", "bu": "Merch", "area": "Marketplace", "nome": "Danielle Souza Barros", "email": "danielle.barros@mercadolivre.com", "cargo": "SSr Analyst", "servico": "Atendimento + Design + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 26, "empresa": "Mercado Livre", "bu": "VIS Latam", "area": "Marketing Commerce VIS", "nome": "Delia Ortuzar Fernandez", "email": "delia.ortuzarfernandez@mercadolibre.cl", "cargo": "Sr Analyst", "servico": "Atendimento + Design + Operação", "idioma": "ES", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 27, "empresa": "Mercado Livre", "bu": "Top Brands", "area": "Ads - T1 & T2", "nome": "Desiree Do Carmo Caterini", "email": "desiree.caterini@mercadolivre.com", "cargo": "Sr Manager", "servico": "Atendimento + Design + Estratégia + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 28, "empresa": "Mercado Livre", "bu": "VIS Latam", "area": "Marketing Commerce VIS", "nome": "Diana Tub", "email": "diana.tub@mercadolibre.com", "cargo": "Specialist", "servico": "Atendimento + Design + Operação", "idioma": "ES", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 29, "empresa": "Mercado Livre", "bu": "BrandStore [TO]", "area": "Seller Development", "nome": "Elisa Abreu", "email": "ext_elisabre@mercadolivre.com", "cargo": "ext", "servico": "Atendimento + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 30, "empresa": "Mercado Livre", "bu": "Merch", "area": "Marketplace", "nome": "Enderson Aparecido Dos Anjos", "email": "enderson.dosanjos@mercadolivre.com", "cargo": "Specialist", "servico": "Atendimento + Design + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 31, "empresa": "Mercado Livre", "bu": "TECH", "area": "Ads - T1 & T2", "nome": "Erik Junior", "email": "erik.sribeiro@mercadolivre.com", "cargo": "CSM", "servico": "Atendimento + Design + Estratégia + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 32, "empresa": "Mercado Livre", "bu": "Tech", "area": "Ads - T1 & T2", "nome": "Erik Junior", "email": "erik.sribeiro@mercadolivre.com", "cargo": "CSM", "servico": "Atendimento + Design + Estratégia + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 33, "empresa": "Mercado Pago", "bu": "POM", "area": "Marketing Acquisition", "nome": "Fabiana Ambrosio", "email": "fabiana.ambrosio@mercadolivre.com", "cargo": "SSr Analyst", "servico": "AV + Atendimento + Design", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 34, "empresa": "GWM", "bu": "E-Commerce", "area": "E-Commerce", "nome": "Felipe Bellini", "email": "felipe.bellini@gwmmotors.com.br", "cargo": "Analyst", "servico": "Atendimento + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 35, "empresa": "Mercado Livre", "bu": "Top Brands", "area": "Ads - T1 & T2", "nome": "Fernanda Nakazaki", "email": "fernanda.correa@mercadolivre.com", "cargo": "Sr Manager", "servico": "Atendimento + Design + Estratégia + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 36, "empresa": "Mercado Livre", "bu": "Field", "area": "Marketing", "nome": "Fernando Teixeira", "email": "fernando.eteixeira@mercadolivre.com", "cargo": "Sr Analyst", "servico": "Atendimento + Design", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 37, "empresa": "GWM", "bu": "Financiamento", "area": "Financing & Insurance", "nome": "Flávio Bernardes", "email": "flavio.bernardes@gwmmotors.com.br", "cargo": "Specialist", "servico": "Atendimento + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 38, "empresa": "Mercado Livre", "bu": "HPC", "area": "Ads - T1 & T2", "nome": "Gabriel Mitidieri", "email": "gabriel.degaspari@mercadolivre.com", "cargo": "CSM", "servico": "Atendimento + Design + Estratégia + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 39, "empresa": "Mercado Livre", "bu": "Clips", "area": "Social Commerce", "nome": "Gabrielly Merencio", "email": "gabrielly.merencio@mercadolivre.com", "cargo": "SSr Analyst", "servico": "Atendimento + Operação de Moderação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 40, "empresa": "Mercado pago", "bu": "POM", "area": "Sellers / Loyalty / MKTP", "nome": "Gisele Akemi Mateus Fujikawa", "email": "gisele.fujikawa@mercadolivre.com", "cargo": "Manager", "servico": "AV + Atendimento + Design", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 41, "empresa": "Mercado Livre", "bu": "Motors", "area": "Marketplace VIS", "nome": "Giulia Benetton Pinheiro Ayricke", "email": "giulia.benetton@mercadolivre.com", "cargo": "Sr Analyst", "servico": "Atendimento + Design + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": "21/05", "nps": 10.0}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": 10.0, "classificacao": "Promotor", "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 42, "empresa": "Mercado Livre", "bu": "Eventos", "area": "Seller Development", "nome": "Glenda Mara Arthuso Teixeira", "email": "glenda.teixeira@mercadolivre.com", "cargo": "Manager", "servico": "Atendimento + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 43, "empresa": "Mercado Livre", "bu": "GROWTH (Sellers)", "area": "Ads - T1 & T2", "nome": "Guilherme Dal Lago", "email": "guilherme.lago@mercadolivre.com", "cargo": "CP", "servico": "Atendimento + Design + Estratégia + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 44, "empresa": "Mercado Livre", "bu": "Cupom", "area": "Marketing", "nome": "Gustavo Chaoyu Lee Hsu", "email": "gustavo.hsu@mercadolivre.com", "cargo": "Specialist", "servico": "Atendimento + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": "20/05", "nps": 8.0}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": 8.0, "classificacao": "Neutro", "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 45, "empresa": "Mercado Livre", "bu": "Autos", "area": "Ads - T1 & T2", "nome": "Ihorran Caldeira", "email": "ihorran.caldeira@mercadolivre.com", "cargo": "CP", "servico": "Atendimento + Design + Estratégia + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 46, "empresa": "Mercado Livre", "bu": "HI", "area": "Ads - T1 & T2", "nome": "João Ferreira", "email": "joao.cferreira@mercadolivre.com", "cargo": "CSM", "servico": "Atendimento + Design + Estratégia + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 47, "empresa": "Mercado Livre", "bu": "CPG", "area": "Ads - T1 & T2", "nome": "Jonas Munn", "email": "jonas.munn@mercadolivre.com", "cargo": "CP", "servico": "Atendimento + Design + Estratégia + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 48, "empresa": "Mercado Livre", "bu": "Loyalty", "area": "Loyalty & Entertainment", "nome": "Juan Brusch", "email": "juan.bruschi@mercadolibre.com", "cargo": "Specialist", "servico": "Atendimento + Design", "idioma": "ES", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": "20/05", "nps": 10.0}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": 10.0, "classificacao": "Promotor", "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 49, "empresa": "Mercado Livre", "bu": "Sellers", "area": "Marketing Commerce", "nome": "Julia Viagi Basilio", "email": "julia.basilio@mercadolivre.com", "cargo": "Sr Analyst", "servico": "AV + Atendimento + Design + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 50, "empresa": "Mercado Livre", "bu": "Marketing", "area": "Marketing", "nome": "Karina Alexandra Bigatini", "email": "karina.bigatini@mercadolivre.com", "cargo": "Manager", "servico": "Atendimento + Design", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": "20/05", "nps": 8.0}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": 8.0, "classificacao": "Neutro", "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 51, "empresa": "Mercado Livre", "bu": "Envios", "area": "Growth", "nome": "Kau Majer", "email": "kau.majer@mercadolivre.com", "cargo": "SSr Analyst", "servico": "Atendimento + Design + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 52, "empresa": "Mercado Livre", "bu": "Merch", "area": "Marketplace", "nome": "Larissa Tolentino Da Costa", "email": "larissa.tolentino@mercadolivre.com", "cargo": "Sr Analyst", "servico": "Atendimento + Design + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 53, "empresa": "Mercado Livre", "bu": "Clips", "area": "Social Commerce", "nome": "Ligia Pinheiro", "email": "ligia.pinheiros@mercadolivre.com", "cargo": "Expert", "servico": "Atendimento + Operação de Moderação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 54, "empresa": "Mercado Livre", "bu": "Motors", "area": "Marketplace VIS", "nome": "Lilian Volponi De Oliveira", "email": "lilian.volponi@mercadolivre.com", "cargo": "Manager", "servico": "Atendimento + Design + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 55, "empresa": "Mercado Livre", "bu": "Loyalty", "area": "Entertainment | Mercado Play", "nome": "Luana Leao", "email": "luana.leao@mercadolivre.com", "cargo": "Specialist", "servico": "Atendimento + Design", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": "20/05", "nps": 10.0}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 56, "empresa": "Mercado Livre", "bu": "VIS Latam", "area": "Marketing Commerce VIS", "nome": "Lucas Schiavon", "email": "lucas.schiavon@mercadolivre.com", "cargo": "Sr Analyst", "servico": "Atendimento + Design + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 57, "empresa": "Mercado Livre", "bu": "Merch", "area": "Marketplace", "nome": "Lucas Yuji Honma", "email": "lucas.honma@mercadolivre.com", "cargo": "Sr Analyst", "servico": "Atendimento + Design + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 58, "empresa": "GWM", "bu": "App operations | Website | CRM", "area": "App operations | Website | CRM", "nome": "Marcelo Valdivia", "email": "marcelo.valdivia@gwmmotors.com.br", "cargo": "Manager", "servico": "Atendimento + Design + Estratégia + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 59, "empresa": "Mercado Livre", "bu": "GROWTH (Sellers)", "area": "Ads - T1 & T2", "nome": "Maria Eduarda", "email": "maria.albuquerque@mercadolivre.com", "cargo": "CP", "servico": "Atendimento + Design + Estratégia + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 60, "empresa": "Mercado livre", "bu": "Oficina Brasil", "area": "Vehicle Parts & Accesories Brazil", "nome": "Maria Fernanda Cadimo Ramos", "email": "maria.aramos@mercadolivre.com", "cargo": "Sr Analyst", "servico": "Atendimento + Design", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": "20/05", "nps": 10.0}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": 10.0, "classificacao": "Promotor", "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 61, "empresa": "Mercado Livre", "bu": "Sellers", "area": "Marketing Commerce", "nome": "Mariana Diniz", "email": "mariana.diniz@mercadolivre.com", "cargo": "Manager", "servico": "AV + Atendimento + Design + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 62, "empresa": "Mercado Livre", "bu": "Merch", "area": "Site Merch & Promotions Marketplace Brazil", "nome": "Mariana Moreira Da Silva Coelho", "email": "mariana.coelho@mercadolivre.com", "cargo": "Manager", "servico": "Recurso Humano", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 63, "empresa": "Mercado Livre", "bu": "Engage", "area": "Marketing Engagement & Growth", "nome": "Martina Moraga", "email": "ext_moragmar@mercadolibre.com", "cargo": "", "servico": "Atendimento + Design", "idioma": "ES", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": "21/05", "nps": 4.0}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": 4.0, "classificacao": "Detrator", "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 64, "empresa": "Mercado Livre", "bu": "Motors", "area": "Marketplace VIS", "nome": "Mayara Figueira Monteiro", "email": "mayara.mfigueira@mercadolivre.com", "cargo": "Sr Analyst", "servico": "Atendimento + Design + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": "21/05", "nps": 10.0}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": 10.0, "classificacao": "Promotor", "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 65, "empresa": "Mercado Livre", "bu": "HPC", "area": "Ads - T1 & T2", "nome": "Mayara Prado", "email": "mayara.silva@mercadolivre.com", "cargo": "CP", "servico": "Atendimento + Design + Estratégia + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 66, "empresa": "Mercado Livre", "bu": "Motors", "area": "Marketplace VIS", "nome": "Michele Cristiane Aprile Bulgarelli", "email": "michele.bulgarelli@mercadolivre.com", "cargo": "Sr Analyst", "servico": "Atendimento + Design + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 67, "empresa": "Mercado Livre", "bu": "Beauty", "area": "Ads - T1 & T2", "nome": "Nathalia Morais Cavalcanti", "email": "nathalia.cavalcanti@mercadolivre.com", "cargo": "CSM", "servico": "Atendimento + Design + Estratégia + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 68, "empresa": "Mercado Livre", "bu": "VIS Latam", "area": "Marketing Commerce VIS", "nome": "Nina Duarte Anaruma Wu", "email": "nina.anaruma@mercadolivre.com", "cargo": "Sr Manager", "servico": "Atendimento + Design + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 69, "empresa": "Mercado Livre", "bu": "Beauty", "area": "Ads - T1 & T2", "nome": "Oksana Kuchar", "email": "oksana.kuchar@mercadolivre.com", "cargo": "CP", "servico": "Atendimento + Design + Estratégia + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 70, "empresa": "Mercado Livre", "bu": "Eventos", "area": "Seller Development", "nome": "Patricia Coutinho Paiva De Lima", "email": "patricia.coutinho@mercadolivre.com", "cargo": "Sr Manager", "servico": "Atendimento + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 71, "empresa": "Mercado Livre", "bu": "CPG", "area": "Ads - T1 & T2", "nome": "Patricia Ramos De Quadros", "email": "patricia.quadros@mercadolivre.com", "cargo": "CSM", "servico": "Atendimento + Design + Estratégia + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 72, "empresa": "Mercado Livre", "bu": "Non endemic", "area": "Ads - T1 & T2", "nome": "Patrick Monteagudo", "email": "patrick.monteagudo@mercadolivre.com", "cargo": "CSM", "servico": "Atendimento + Design + Estratégia + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 73, "empresa": "GWM", "bu": "App operations | Website | CRM", "area": "App operations | Website | CRM", "nome": "Paula dos Santos Batista", "email": "paula.batista@gwmmotors.com.br", "cargo": "Analyst", "servico": "Atendimento + Design + Estratégia + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 74, "empresa": "Mercado Livre", "bu": "Envios", "area": "Growth", "nome": "Paula Freyre", "email": "paula.freyre@mercadolibre.com", "cargo": "Sr Analyst", "servico": "Atendimento + Design + Operação", "idioma": "ES", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 75, "empresa": "Mercado Pago", "bu": "POM", "area": "Marketing Acquisition", "nome": "Paula Villar", "email": "paula.villar@mercadolibre.com", "cargo": "Sr Analyst", "servico": "AV + Atendimento + Design", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 76, "empresa": "GWM", "bu": "Financiamento", "area": "Financing & Insurance", "nome": "Rafael Dores", "email": "rafael.dores@gwmmotors.com.br", "cargo": "Manager", "servico": "Atendimento + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 77, "empresa": "Mercado Livre", "bu": "Home", "area": "Ads - T1 & T2", "nome": "Rafael Turri", "email": "rafael.turri@mercadolivre.com", "cargo": "CP", "servico": "Atendimento + Design + Estratégia + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 78, "empresa": "Mercado Livre", "bu": "Envios", "area": "Growth", "nome": "Regi Cruz", "email": "regiane.cruz@mercadolivre.com", "cargo": "Manager", "servico": "Atendimento + Design + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": "21/05", "nps": 8.0}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": 8.0, "classificacao": "Neutro", "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 79, "empresa": "Mercado Livre", "bu": "Top Brands", "area": "Ads - T1 & T2", "nome": "Renata Herz", "email": "renata.herz@mercadolivre.com", "cargo": "Sr Manager", "servico": "Atendimento + Design + Estratégia + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 80, "empresa": "Mercado Livre", "bu": "Loyalty", "area": "Loyalty | Meli+", "nome": "Sophie Tobo Magalhaes", "email": "sophie.tobo@mercadolivre.com", "cargo": "Expert", "servico": "Atendimento + Design", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 81, "empresa": "Mercado Livre", "bu": "Safety", "area": "SHE", "nome": "Tatiana Cormack Coutinho", "email": "tatiana.cormack@mercadolivre.com", "cargo": "Supervisor", "servico": "Atendimento + Design", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 82, "empresa": "Mercado Livre", "bu": "Fashion", "area": "Ads - T1 & T2", "nome": "Tatiane Santos Dell Agli", "email": "tatiane.dellagli@mercadolivre.com", "cargo": "CP", "servico": "Atendimento + Design + Estratégia + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 83, "empresa": "Mercado Livre", "bu": "Growth", "area": "Ads - T1 & T2", "nome": "Thiago Alberto", "email": "thiago.tgoncalves@mercadolivre.com", "cargo": "CP", "servico": "Atendimento + Design + Estratégia + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 84, "empresa": "Mercado Livre", "bu": "POM", "area": "Marketing Acquisition", "nome": "Victor Toshio Ramos Teshima", "email": "victor.vtoshio@mercadolivre.com", "cargo": "Sr Analyst", "servico": "AV + Atendimento + Design", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": "21/05", "nps": 2.0}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": 2.0, "classificacao": "Detrator", "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 85, "empresa": "Mercado Livre", "bu": "Beauty", "area": "Ads - T1 & T2", "nome": "Vinicius Azeredo", "email": "vinicius.azeredo@mercadolivre.com", "cargo": "CP", "servico": "Atendimento + Design + Estratégia + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 86, "empresa": "Mercado Livre", "bu": "Autos", "area": "Ads - T1 & T2", "nome": "Wagner Alves", "email": "wagner.alves@mercadolivre.com", "cargo": "CSM", "servico": "Atendimento + Design + Estratégia + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 87, "empresa": "Mercado Livre", "bu": "BrandStore [TO]", "area": "Seller Development", "nome": "Yasmin Basso Felippe Polcaqui", "email": "yasmin.fpolcaqui@mercadolivre.com", "cargo": "Specialist", "servico": "Atendimento + Operação", "idioma": "PT", "status": "Ativo", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 88, "empresa": "PicPay", "bu": "", "area": "Incluir", "nome": "", "email": "", "cargo": "", "servico": "Atendimento + Design + Operação", "idioma": "PT", "status": "", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 89, "empresa": "Mercado Livre", "bu": "B2B", "area": "Incluir", "nome": "", "email": "", "cargo": "", "servico": "Atendimento + Design + Operação", "idioma": "PT", "status": "", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}, {"id": 90, "empresa": "Mercado Livre", "bu": "Basics", "area": "incluir", "nome": "", "email": "", "cargo": "", "servico": "Atendimento + Design", "idioma": "PT", "status": "", "feedbacks": [{"periodo": "Q2 2026 — Maio", "data": null, "nps": null}, {"periodo": "Q3 2026 — Setembro", "data": null, "nps": null}, {"periodo": "Q1 2027 — Janeiro", "data": null, "nps": null}, {"periodo": "Q2 2027 — Abril", "data": null, "nps": null}, {"periodo": "Q3 2027 — Julho", "data": null, "nps": null}], "nps_medio": null, "classificacao": null, "stages": {"form": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "send": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "reply": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "plan": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}, "exec": {"status": "pending", "start": "", "end": "", "notes": "", "files": []}}}];
+
+// ── STATE ────────────────────────────────────────────────────
+const KEY = 'wl_v2';
+const S = {clients:[], sel:null, open:null, gToken:null, editId:null, selBlock:null};
+let _upStage = null;
+
+function save(){localStorage.setItem(KEY,JSON.stringify({clients:S.clients}))}
+function load(){
+  try{
+    const d = JSON.parse(localStorage.getItem(KEY)||'{}');
+    if(d.clients && d.clients.length) { S.clients = d.clients; return; }
+  }catch{}
+  // First run: seed from spreadsheet
+  S.clients = SEED.map(c => ({
+    ...c,
+    id: String(c.id),
+    stages: c.stages || initStages()
+  }));
+  save();
 }
 
-// ── HELPERS ──────────────────────────────────────────────────────────────────
-function uid() {
-  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
-    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
-}
-function initStages() {
-  const o = {};
-  STAGES.forEach(s => { o[s.id] = { status: 'pending', start: '', end: '', notes: '', files: [] }; });
+function initStages(){
+  const o={};
+  STAGES.forEach(s=>{o[s.id]={status:'pending',start:'',end:'',notes:'',files:[]}});
   return o;
 }
-function initials(n) { return n.split(' ').slice(0,2).map(w => w[0]).join('').toUpperCase(); }
-function fdate(d) { if (!d) return '—'; return new Date(d).toLocaleDateString('pt-BR'); }
-function fsize(b) {
-  if (b < 1024) return b + ' B';
-  if (b < 1048576) return (b/1024).toFixed(1) + ' KB';
-  return (b/1048576).toFixed(1) + ' MB';
-}
-function today() { return new Date().toISOString().split('T')[0]; }
 
-function pct(c) {
-  const s = STAGES.map(st => c.stages[st.id].status);
-  const done = s.filter(x => x === 'completed').length;
-  const act  = s.some(x => x === 'active') ? 0.5 : 0;
-  return Math.round(((done + act) / STAGES.length) * 100);
+function uid(){return Date.now()+Math.random().toString(36).slice(2)}
+function initials(n){return n.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase()}
+function fdate(d){if(!d)return'—';const x=new Date(d);return isNaN(x)?d:x.toLocaleDateString('pt-BR')}
+function fsize(b){if(b<1024)return b+' B';if(b<1048576)return(b/1024).toFixed(1)+' KB';return(b/1048576).toFixed(1)+' MB'}
+function today(){return new Date().toISOString().split('T')[0]}
+function pct(c){
+  const s=STAGES.map(st=>c.stages[st.id].status);
+  return Math.round(((s.filter(x=>x==='completed').length+(s.some(x=>x==='active')?.5:0))/STAGES.length)*100);
 }
-
-function currentStage(c) {
-  let last = null;
-  for (const st of STAGES) {
-    const s = c.stages[st.id];
-    if (s.status === 'active') return st;
-    if (s.status === 'completed') last = st;
+function curStage(c){
+  let last=null;
+  for(const st of STAGES){
+    const s=c.stages[st.id];
+    if(s.status==='active')return st;
+    if(s.status==='completed')last=st;
   }
-  return last || STAGES[0];
+  return last||STAGES[0];
 }
 
-// ── TOAST ────────────────────────────────────────────────────────────────────
-function toast(msg, type = 'ok') {
-  const el = document.createElement('div');
-  el.className = `toast ${type}`;
-  el.innerHTML = (type === 'ok' ? '✓ ' : '✕ ') + msg;
-  document.getElementById('toasts').appendChild(el);
-  setTimeout(() => el.remove(), 3600);
+// ── TOAST ────────────────────────────────────────────────────
+function toast(msg,type='ok'){
+  const el=document.createElement('div');
+  el.className='toast t'+type;
+  el.innerHTML=(type==='ok'?'✓ ':'✕ ')+msg;
+  document.getElementById('tc').appendChild(el);
+  setTimeout(()=>el.remove(),3500);
 }
 
-// ── OVERLAY ──────────────────────────────────────────────────────────────────
-function openOverlay(id) { document.getElementById(id).classList.add('on'); }
-function closeOverlay(id) { document.getElementById(id).classList.remove('on'); }
-document.querySelectorAll('.overlay').forEach(o => o.addEventListener('click', e => { if (e.target === o) o.classList.remove('on'); }));
-
-// ── CLIENT CRUD ──────────────────────────────────────────────────────────────
-function saveClient() {
-  const name = document.getElementById('fName').value.trim();
-  if (!name) { toast('Informe o nome do cliente', 'err'); return; }
-
-  if (S.editId) {
-    const c = S.clients.find(x => x.id === S.editId);
-    if (c) {
-      c.name  = name;
-      c.co    = document.getElementById('fCo').value.trim();
-      c.proj  = document.getElementById('fProj').value.trim();
-      c.owner = document.getElementById('fOwner').value.trim();
-      c.email = document.getElementById('fEmail').value.trim();
-    }
-    S.editId = null;
-    toast('Cliente atualizado');
-  } else {
-    const c = {
-      id: uid(), name,
-      co:    document.getElementById('fCo').value.trim(),
-      proj:  document.getElementById('fProj').value.trim(),
-      owner: document.getElementById('fOwner').value.trim(),
-      email: document.getElementById('fEmail').value.trim(),
-      created: today(),
-      stages: initStages(),
-    };
-    S.clients.unshift(c);
-    S.sel = c.id;
-    toast(`"${name}" criado`);
-  }
-  save(); clearForm(); closeOverlay('oNew');
-  renderAll();
+// ── NAVIGATION ───────────────────────────────────────────────
+function goHome(){
+  setView('home');
+  renderHomeStats();
+}
+function goClients(){
+  setView('clients');
+  renderClients();
+}
+function goBlocks(){
+  setView('blocks');
+  renderBlocks();
+}
+function setView(v){
+  ['home','clients','blocks'].forEach(x=>{
+    document.getElementById('v-'+x).classList.toggle('on',x===v);
+    document.getElementById('btn-'+x).classList.toggle('act',x===v);
+  });
 }
 
-function clearForm() {
-  ['fName','fCo','fProj','fOwner','fEmail'].forEach(id => document.getElementById(id).value = '');
+// ── OVERLAY ──────────────────────────────────────────────────
+function openOv(id){document.getElementById(id).classList.add('on')}
+function closeOv(id){document.getElementById(id).classList.remove('on')}
+document.querySelectorAll('.ov').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('on');resetModal();}));
+
+// ── HOME ─────────────────────────────────────────────────────
+function renderHomeStats(){
+  const total = S.clients.length;
+  const resp  = S.clients.filter(c=>c.feedbacks.some(f=>f.nps!==null)).length;
+  const npsList = S.clients.filter(c=>c.nps_medio).map(c=>c.nps_medio);
+  const avg   = npsList.length ? (npsList.reduce((a,b)=>a+b,0)/npsList.length).toFixed(1) : '—';
+  document.getElementById('homeStats').innerHTML = `
+    <div class="hstat"><div class="hstat-n">${total}</div><div class="hstat-l">Total Clientes</div></div>
+    <div class="hstat"><div class="hstat-n">${resp}</div><div class="hstat-l">Responderam</div></div>
+    <div class="hstat"><div class="hstat-n">${avg}</div><div class="hstat-l">NPS Médio</div></div>
+  `;
 }
 
-function openEdit(id) {
-  const c = S.clients.find(x => x.id === id);
-  if (!c) return;
-  S.editId = id;
-  document.getElementById('modalTitle').textContent = 'Editar Cliente';
-  document.getElementById('modalSaveBtn').textContent = 'Salvar Alterações';
-  document.getElementById('fName').value  = c.name;
-  document.getElementById('fCo').value    = c.co || '';
-  document.getElementById('fProj').value  = c.proj || '';
-  document.getElementById('fOwner').value = c.owner || '';
-  document.getElementById('fEmail').value = c.email || '';
-  openOverlay('oNew');
+// ── CLIENTS ──────────────────────────────────────────────────
+function renderClients(){
+  renderSidebar();
+  renderMain();
 }
 
-// Reset modal for new client when closed
-document.getElementById('oNew').addEventListener('click', () => {
-  if (!document.getElementById('oNew').classList.contains('on')) resetModal();
-});
-document.querySelector('#oNew .btn-x').addEventListener('click', resetModal);
-document.querySelector('#oNew .btn-cancel').addEventListener('click', resetModal);
-function resetModal() {
-  S.editId = null;
-  document.getElementById('modalTitle').textContent = 'Novo Cliente';
-  document.getElementById('modalSaveBtn').textContent = 'Criar Cliente';
-  clearForm();
-}
-
-function selectClient(id) { S.sel = id; S.open = null; renderAll(); }
-function filterClients(q) { renderSidebar(q); }
-
-// ── RENDER: SIDEBAR ──────────────────────────────────────────────────────────
-function renderSidebar(q = '') {
-  const list = document.getElementById('cList');
-  const lc = q.toLowerCase();
-  const filtered = S.clients.filter(c =>
-    c.name.toLowerCase().includes(lc) || (c.co||'').toLowerCase().includes(lc)
-  );
-
-  if (!filtered.length) {
-    list.innerHTML = `<div style="padding:20px;text-align:center;color:var(--text-3);font-size:12px;">Nenhum resultado</div>`;
-    return;
-  }
-
-  list.innerHTML = filtered.map(c => {
-    const progress = STAGES.map(st => c.stages[st.id].status);
-    const hasActv  = progress.some(x => x === 'active');
-    const allDone  = progress.every(x => x === 'completed');
-    const cur      = currentStage(c);
-
-    let bc = 'b-pend', bt = cur ? cur.label : 'Início';
-    if (hasActv) bc = 'b-actv';
-    if (allDone) { bc = 'b-done'; bt = 'Concluído ✓'; }
-
-    return `
-      <div class="c-item ${S.sel === c.id ? 'sel' : ''}" onclick="selectClient('${c.id}')">
-        <div class="c-name">${c.name}</div>
-        ${c.co ? `<div class="c-co">${c.co}</div>` : ''}
-        <div class="c-badge ${bc}">${bt}</div>
-      </div>`;
+function renderSidebar(q=''){
+  const lc=q.toLowerCase();
+  const f=S.clients.filter(c=>c.nome.toLowerCase().includes(lc)||(c.empresa||'').toLowerCase().includes(lc));
+  const list=document.getElementById('cList');
+  if(!f.length){list.innerHTML=`<div style="padding:18px;text-align:center;color:var(--t3);font-size:12px;">Nenhum resultado</div>`;return}
+  list.innerHTML=f.map(c=>{
+    const prog=STAGES.map(st=>c.stages[st.id].status);
+    const hasA=prog.some(x=>x==='active'),allD=prog.every(x=>x==='completed');
+    const cur=curStage(c);
+    let bc='bp',bt=cur?cur.label:'Início';
+    if(hasA)bc='ba';if(allD){bc='bd2';bt='Concluído ✓'}
+    return`<div class="ci ${S.sel===String(c.id)?'sel':''}" onclick="selectC('${c.id}')">
+      <div class="cn">${c.nome}</div>
+      ${c.empresa?`<div class="cco">${c.empresa}</div>`:''}
+      <div class="cbadge ${bc}">${bt}</div>
+    </div>`;
   }).join('');
 }
 
-// ── RENDER: MAIN ─────────────────────────────────────────────────────────────
-function renderMain() {
-  const main = document.getElementById('main');
-  if (!S.sel) { renderDashboard(); return; }
-  const c = S.clients.find(x => x.id === S.sel);
-  if (!c) { renderDashboard(); return; }
+function selectC(id){S.sel=String(id);S.open=null;renderSidebar(document.getElementById('srch').value);renderMain()}
+function filterClients(q){renderSidebar(q)}
 
-  const progress  = STAGES.map(st => c.stages[st.id].status);
-  const pcPct     = pct(c);
-  const fillWidth = pcPct;
-
-  main.innerHTML = `
-    <div class="detail">
-
-      <!-- Header -->
-      <div class="det-head">
-        <div>
-          <h1>${c.name}</h1>
-          <div class="det-meta">
-            ${c.co    ? `<div><span>Empresa</span>${c.co}</div>` : ''}
-            ${c.proj  ? `<div><span>Projeto</span>${c.proj}</div>` : ''}
-            ${c.owner ? `<div><span>Resp.</span>${c.owner}</div>` : ''}
-          </div>
-        </div>
-        <button class="btn-edit" onclick="openEdit('${c.id}')">✏ Editar</button>
-      </div>
-
-      <!-- Stats -->
-      <div class="stats">
-        ${STAGES.map(st => {
-          const s = c.stages[st.id];
-          const num   = s.status === 'completed' ? '✓' : s.status === 'active' ? '●' : '–';
-          const color = s.status === 'completed' ? 'var(--primary)' : s.status === 'active' ? 'var(--amber)' : 'var(--text-3)';
-          return `<div class="stat">
-            <div class="stat-n" style="color:${color}">${num}</div>
-            <div class="stat-l">${st.label}</div>
-          </div>`;
-        }).join('')}
-      </div>
-
-      <!-- Timeline card -->
-      <div class="tl-card">
-        <div class="tl-card-title">Linha do Tempo · ${pcPct}% concluído</div>
-        <div class="timeline">
-          <div class="tl-track"><div class="tl-fill" style="width:${fillWidth}%"></div></div>
-          <div class="tl-steps">
-            ${STAGES.map((st, i) => {
-              const s = c.stages[st.id];
-              const cls = s.status === 'completed' ? 'done' : s.status === 'active' ? 'actv' : 'pend';
-              const ico = s.status === 'completed' ? '✓' : st.icon;
-              return `
-                <div class="tl-step" onclick="toggleStage('${st.id}')">
-                  <div class="tl-circle ${cls}">${ico}</div>
-                  <div class="tl-label ${cls}">${st.label}</div>
-                </div>`;
-            }).join('')}
-          </div>
+function renderMain(){
+  const main=document.getElementById('main');
+  if(!S.sel){renderDash();return}
+  const c=S.clients.find(x=>String(x.id)===S.sel);
+  if(!c){renderDash();return}
+  const p=pct(c);
+  main.innerHTML=`<div class="detail">
+    <div class="det-head">
+      <div>
+        <h1>${c.nome}</h1>
+        <div class="det-meta">
+          ${c.empresa?`<div><span>Empresa</span>${c.empresa}</div>`:''}
+          ${c.bu?`<div><span>BU</span>${c.bu}</div>`:''}
+          ${c.area||c.proj?`<div><span>Área</span>${c.area||c.proj}</div>`:''}
+          ${c.cargo?`<div><span>Cargo</span>${c.cargo}</div>`:''}
+          ${c.email?`<div><span>Email</span>${c.email}</div>`:''}
         </div>
       </div>
-
-      <!-- Stage cards -->
-      <div class="stages">
-        ${STAGES.map(st => renderStageCard(c, st)).join('')}
-      </div>
-
-    </div>`;
-
-  setupDropZones();
-}
-
-// ── RENDER: STAGE CARD ───────────────────────────────────────────────────────
-function renderStageCard(c, st) {
-  const s = c.stages[st.id];
-  const isOpen = S.open === st.id;
-  const sc   = s.status === 'completed' ? 's-done' : s.status === 'active' ? 's-actv' : '';
-  const pc   = s.status === 'completed' ? 'p-done' : s.status === 'active' ? 'p-actv' : 'p-pend';
-  const pt   = s.status === 'completed' ? '✓ Concluído' : s.status === 'active' ? '● Em Andamento' : '○ Pendente';
-  const ic   = s.status === 'completed' ? 'done' : s.status === 'active' ? 'actv' : '';
-
-  const fileListHtml = (s.files && s.files.length) ? `
-    <div class="file-list" style="margin-bottom:10px;">
-      ${s.files.map((f, fi) => `
-        <div class="f-item">
-          <div class="f-left">
-            <div class="f-ico">${f.type && f.type.includes('image') ? '🖼' : f.type && f.type.includes('pdf') ? '📕' : '📄'}</div>
-            <div>
-              <div class="f-name">${f.name}</div>
-              <div class="f-meta">${f.size || ''}${f.date ? ' · ' + fdate(f.date) : ''}</div>
-            </div>
-          </div>
-          <div class="f-right">
-            ${f.driveUrl ? `<a href="${f.driveUrl}" target="_blank" class="btn-drive-link">☁ Drive</a>` : '<span style="font-size:10px;color:var(--text-3)">local</span>'}
-            <button class="btn-del" onclick="delFile('${c.id}','${st.id}',${fi})" title="Remover">×</button>
-          </div>
-        </div>`).join('')}
-    </div>` : '';
-
-  const uploadHtml = st.hasUpload ? `
-    <div class="upload-sec">
-      <div class="upload-ttl">Arquivos de Resposta</div>
-      ${fileListHtml}
-      <div class="drop" id="drop-${st.id}" onclick="triggerUpload('${st.id}')">
-        <div class="drop-ico">📎</div>
-        <div class="drop-txt">Clique ou arraste o arquivo aqui</div>
-        <div class="drop-hint">PDF · DOCX · XLSX · imagens · máx. 25 MB</div>
-      </div>
-      <div class="up-bar-wrap" id="upWrap-${st.id}">
-        <div class="up-bar-head">
-          <span id="upName-${st.id}">Enviando…</span>
-          <span id="upPct-${st.id}">0%</span>
-        </div>
-        <div class="up-bar"><div class="up-bar-fill" id="upBar-${st.id}" style="width:0%"></div></div>
-      </div>
-    </div>` : (fileListHtml ? `<div class="upload-sec"><div class="upload-ttl">Arquivos</div>${fileListHtml}</div>` : '');
-
-  return `
-    <div class="stage ${sc}" id="sc-${st.id}">
-      <div class="stage-head" onclick="toggleStage('${st.id}')">
-        <div class="stage-lft">
-          <div class="stage-ico ${ic}">${st.icon}</div>
-          <div>
-            <div class="stage-ttl">${st.label}</div>
-            <div class="stage-desc">${st.desc}</div>
-          </div>
-        </div>
-        <div style="display:flex;align-items:center;gap:9px">
-          <span class="pill ${pc}">${pt}</span>
-          <span class="chev ${isOpen ? 'open' : ''}">⌄</span>
-        </div>
-      </div>
-      <div class="stage-body ${isOpen ? 'open' : ''}">
-        <div class="s-grid">
-          <div>
-            <label class="lbl">Status</label>
-            <select class="sel" onchange="updateField('${c.id}','${st.id}','status',this.value)">
-              <option value="pending"   ${s.status==='pending'  ?'selected':''}>Pendente</option>
-              <option value="active"    ${s.status==='active'   ?'selected':''}>Em Andamento</option>
-              <option value="completed" ${s.status==='completed'?'selected':''}>Concluído</option>
-            </select>
-          </div>
-          <div>
-            <label class="lbl">Data de Início</label>
-            <input type="date" class="inp" value="${s.start}" onchange="updateField('${c.id}','${st.id}','start',this.value)">
-          </div>
-          <div>
-            <label class="lbl">Data de Conclusão</label>
-            <input type="date" class="inp" value="${s.end}" onchange="updateField('${c.id}','${st.id}','end',this.value)">
-          </div>
-          <div></div>
-          <div class="s-full">
-            <label class="lbl">Observações</label>
-            <textarea class="ta" placeholder="Notas sobre esta etapa…" onchange="updateField('${c.id}','${st.id}','notes',this.value)">${s.notes||''}</textarea>
-          </div>
-        </div>
-        ${uploadHtml}
-      </div>
-    </div>`;
-}
-
-// ── RENDER: DASHBOARD ────────────────────────────────────────────────────────
-function renderDashboard() {
-  const main  = document.getElementById('main');
-  const total = S.clients.length;
-
-  if (!total) {
-    main.innerHTML = `
-      <div class="empty">
-        <div class="empty-icon">📋</div>
-        <h2>Nenhum cliente ainda</h2>
-        <p>Clique em <strong>Novo Cliente</strong> na barra lateral para começar a controlar o workflow de feedback.</p>
-      </div>`;
-    return;
-  }
-
-  const byStage = {};
-  STAGES.forEach(st => { byStage[st.id] = 0; });
-  S.clients.forEach(c => STAGES.forEach(st => { if (c.stages[st.id].status === 'active') byStage[st.id]++; }));
-
-  main.innerHTML = `
-    <div class="dashboard">
-      <div class="dash-title">Visão Geral · ${total} cliente${total !== 1 ? 's' : ''}</div>
-      <div class="dash-stats">
-        ${STAGES.map(st => `
-          <div class="ds-card">
-            <div class="ds-ico">${st.icon}</div>
-            <div class="ds-num">${byStage[st.id]}</div>
-            <div class="ds-lbl">${st.label}</div>
-          </div>`).join('')}
-      </div>
-      <div class="client-grid">
-        ${S.clients.map(c => {
-          const progress = STAGES.map(st => c.stages[st.id].status);
-          const cur = currentStage(c);
-          return `
-            <div class="c-card" onclick="selectClient('${c.id}')">
-              <div class="c-card-top">
-                <div class="c-avatar">${initials(c.name)}</div>
-                <div>
-                  <div class="c-card-n">${c.name}</div>
-                  <div class="c-card-co">${c.co || c.proj || 'Cliente'}</div>
-                </div>
-              </div>
-              <div class="mini-tl">
-                ${progress.map(st => `<div class="mini-s ${st === 'completed' ? 'done' : st === 'active' ? 'actv' : ''}"></div>`).join('')}
-              </div>
-              <div class="c-card-foot">
-                <span class="c-card-stage">${cur ? cur.label : '—'}</span>
-                <span class="c-card-pct">${pct(c)}%</span>
-              </div>
+      <button class="btn-edit" onclick="openEdit('${c.id}')">✏ Editar</button>
+    </div>
+    <div class="stats">
+      ${STAGES.map(st=>{
+        const s=c.stages[st.id];
+        const n=s.status==='completed'?'✓':s.status==='active'?'●':'–';
+        const col=s.status==='completed'?'var(--g)':s.status==='active'?'var(--amb)':'var(--t3)';
+        return`<div class="stat"><div class="stat-n" style="color:${col}">${n}</div><div class="stat-l">${st.label}</div></div>`;
+      }).join('')}
+    </div>
+    ${c.feedbacks&&c.feedbacks.some(f=>f.nps!==null)?renderNpsRow(c):''}
+    <div class="tl-card">
+      <div class="tl-title">Linha do Tempo · ${p}% concluído</div>
+      <div class="timeline">
+        <div class="tl-track"><div class="tl-fill" style="width:${p}%"></div></div>
+        <div class="tl-steps">
+          ${STAGES.map(st=>{
+            const s=c.stages[st.id];
+            const cl=s.status==='completed'?'done':s.status==='active'?'actv':'pend';
+            return`<div class="tl-step" onclick="toggleStage('${st.id}')">
+              <div class="tl-c ${cl}">${s.status==='completed'?'✓':st.icon}</div>
+              <div class="tl-lbl ${cl}">${st.label}</div>
             </div>`;
-        }).join('')}
+          }).join('')}
+        </div>
       </div>
-    </div>`;
+    </div>
+    <div class="stages">${STAGES.map(st=>renderStageCard(c,st)).join('')}</div>
+  </div>`;
+  setupDrops();
 }
 
-// ── HELPERS: RENDER ──────────────────────────────────────────────────────────
-function renderAll() { renderSidebar(); renderMain(); }
+function renderNpsRow(c){
+  return`<div style="background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);padding:16px 18px;margin-bottom:16px;">
+    <div style="font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">Histórico NPS</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      ${c.feedbacks.map(f=>`
+        <div style="background:var(--s2);border-radius:8px;padding:10px 14px;min-width:130px;">
+          <div style="font-size:10px;color:var(--t3);margin-bottom:4px;">${f.periodo}</div>
+          ${f.nps!==null
+            ?`<div style="font-size:22px;font-weight:900;color:${f.nps>=9?'var(--g)':f.nps>=7?'var(--amb)':'var(--red)'}">
+                ${f.nps}<span style="font-size:11px;font-weight:500;color:var(--t3);">/10</span></div>
+               <div style="font-size:10px;margin-top:2px;color:${f.nps>=9?'var(--g)':f.nps>=7?'var(--amb)':'var(--red)'}">${f.nps>=9?'Promotor':f.nps>=7?'Neutro':'Detrator'}</div>
+               ${f.data?`<div style="font-size:10px;color:var(--t3);margin-top:2px;">${fdate(f.data)}</div>`:''}
+              `
+            :`<div style="font-size:13px;color:var(--t3);margin-top:4px;">Aguardando</div>`
+          }
+        </div>`).join('')}
+    </div>
+  </div>`;
+}
 
-// ── STAGE INTERACTIONS ───────────────────────────────────────────────────────
-function toggleStage(id) { S.open = S.open === id ? null : id; renderMain(); }
+function renderStageCard(c,st){
+  const s=c.stages[st.id];
+  const isO=S.open===st.id;
+  const sc=s.status==='completed'?'s-d':s.status==='active'?'s-a':'';
+  const pc=s.status==='completed'?'pd':s.status==='active'?'pa':'pp';
+  const pt=s.status==='completed'?'✓ Concluído':s.status==='active'?'● Em Andamento':'○ Pendente';
+  const ic=s.status==='completed'?'done':s.status==='active'?'actv':'';
+  const files=(s.files&&s.files.length)?`<div class="flist" style="margin-bottom:9px;">
+    ${s.files.map((f,fi)=>`<div class="fi">
+      <div class="fil"><div class="fic">${f.type&&f.type.includes('pdf')?'📕':f.type&&f.type.includes('image')?'🖼':'📄'}</div>
+      <div><div class="fn">${f.name}</div><div class="fm">${f.size||''}${f.date?' · '+fdate(f.date):''}</div></div></div>
+      <div class="fr">
+        ${f.driveUrl?`<a href="${f.driveUrl}" target="_blank" class="btn-dl">☁ Drive</a>`:'<span style="font-size:10px;color:var(--t3)">local</span>'}
+        <button class="btn-rm" onclick="delFile('${c.id}','${st.id}',${fi})">×</button>
+      </div></div>`).join('')}</div>`:''
+  ;
+  const upHtml=st.up?`<div class="upsec"><div class="upt">Arquivos de Resposta</div>${files}
+    <div class="drop" id="drop-${st.id}" onclick="trigUp('${st.id}')">
+      <div class="drop-ico">📎</div><div class="drop-tx">Clique ou arraste aqui</div>
+      <div class="drop-h">PDF · DOCX · XLSX · imagens · máx. 25MB</div>
+    </div>
+    <div class="upwrap" id="upw-${st.id}">
+      <div class="uphd"><span id="upn-${st.id}">Enviando…</span><span id="upp-${st.id}">0%</span></div>
+      <div class="upbar"><div class="upfill" id="upb-${st.id}" style="width:0%"></div></div>
+    </div></div>`:(files?`<div class="upsec"><div class="upt">Arquivos</div>${files}</div>`:'');
+  return`<div class="stg ${sc}" id="sc-${st.id}">
+    <div class="stg-hd" onclick="toggleStage('${st.id}')">
+      <div class="stg-l"><div class="stg-ico ${ic}">${st.icon}</div>
+        <div><div class="stg-t">${st.label}</div><div class="stg-d">${st.desc}</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="pill ${pc}">${pt}</span>
+        <span class="chev ${isO?'op':''}">⌄</span>
+      </div>
+    </div>
+    <div class="stg-body ${isO?'op':''}">
+      <div class="sg">
+        <div><label class="lbl">Status</label>
+          <select class="sel" onchange="upField('${c.id}','${st.id}','status',this.value)">
+            <option value="pending" ${s.status==='pending'?'selected':''}>Pendente</option>
+            <option value="active" ${s.status==='active'?'selected':''}>Em Andamento</option>
+            <option value="completed" ${s.status==='completed'?'selected':''}>Concluído</option>
+          </select></div>
+        <div><label class="lbl">Data de Início</label><input type="date" class="inp" value="${s.start}" onchange="upField('${c.id}','${st.id}','start',this.value)"></div>
+        <div><label class="lbl">Data de Conclusão</label><input type="date" class="inp" value="${s.end}" onchange="upField('${c.id}','${st.id}','end',this.value)"></div>
+        <div></div>
+        <div class="sf"><label class="lbl">Observações</label>
+          <textarea class="ta" placeholder="Notas…" onchange="upField('${c.id}','${st.id}','notes',this.value)">${s.notes||''}</textarea></div>
+      </div>
+      ${upHtml}
+    </div>
+  </div>`;
+}
 
-function updateField(cid, sid, field, val) {
-  const c = S.clients.find(x => x.id === cid);
-  if (!c) return;
-  c.stages[sid][field] = val;
-  if (field === 'status') {
-    if (val === 'active'    && !c.stages[sid].start) c.stages[sid].start = today();
-    if (val === 'completed' && !c.stages[sid].end)   c.stages[sid].end   = today();
+function renderDash(){
+  const main=document.getElementById('main');
+  if(!S.clients.length){main.innerHTML=`<div class="empty"><div class="empty-ico">📋</div><h2>Sem clientes</h2><p>Clique em Novo Cliente para adicionar.</p></div>`;return}
+  const byS={};STAGES.forEach(st=>{byS[st.id]=0});
+  S.clients.forEach(c=>STAGES.forEach(st=>{if(c.stages[st.id].status==='active')byS[st.id]++}));
+  main.innerHTML=`<div class="dash">
+    <div class="dash-t">Visão Geral · ${S.clients.length} clientes</div>
+    <div class="dstats">
+      ${STAGES.map(st=>`<div class="dsc"><div class="dsi">${st.icon}</div><div class="dsn">${byS[st.id]}</div><div class="dsl">${st.label}</div></div>`).join('')}
+    </div>
+    <div class="cgrid">
+      ${S.clients.map(c=>{
+        const prog=STAGES.map(st=>c.stages[st.id].status);
+        const cur=curStage(c);
+        return`<div class="cc" onclick="selectC('${c.id}')">
+          <div class="cct"><div class="cav">${initials(c.nome)}</div>
+            <div><div class="ccn">${c.nome}</div><div class="ccc">${c.empresa||c.proj||'—'}</div></div>
+          </div>
+          <div class="mts">${prog.map(st=>`<div class="ms ${st==='completed'?'done':st==='active'?'actv':''}">&nbsp;</div>`).join('')}</div>
+          <div class="ccf"><span class="ccs">${cur?cur.label:'—'}</span><span class="ccp">${pct(c)}%</span></div>
+        </div>`;
+      }).join('')}
+    </div>
+  </div>`;
+}
+
+// ── STAGE OPS ────────────────────────────────────────────────
+function toggleStage(id){S.open=S.open===id?null:id;renderMain()}
+function upField(cid,sid,field,val){
+  const c=S.clients.find(x=>String(x.id)===String(cid));if(!c)return;
+  c.stages[sid][field]=val;
+  if(field==='status'){
+    if(val==='active'&&!c.stages[sid].start)c.stages[sid].start=today();
+    if(val==='completed'&&!c.stages[sid].end)c.stages[sid].end=today();
   }
-  save();
-  renderSidebar(document.getElementById('srch').value);
-  // Re-render just the stage card & stats without collapsing the open stage
-  const cur = S.open;
-  renderMain();
-  S.open = cur; // keep open
+  save();renderSidebar(document.getElementById('srch').value);renderMain();
+}
+function delFile(cid,sid,idx){
+  const c=S.clients.find(x=>String(x.id)===String(cid));if(!c)return;
+  c.stages[sid].files.splice(idx,1);save();renderMain();toast('Arquivo removido');
 }
 
-function delFile(cid, sid, idx) {
-  const c = S.clients.find(x => x.id === cid);
-  if (!c) return;
-  c.stages[sid].files.splice(idx, 1);
-  save(); renderMain(); toast('Arquivo removido');
-}
-
-// ── FILE UPLOAD ──────────────────────────────────────────────────────────────
-function triggerUpload(sid) { _uploadStage = sid; document.getElementById('fileInput').click(); }
-
-function onFilesPicked(e) {
-  Array.from(e.target.files).forEach(f => handleFile(f));
-  e.target.value = '';
-}
-
-async function handleFile(file) {
-  const sid = _uploadStage;
-  const cid = S.sel;
-  const c   = S.clients.find(x => x.id === cid);
-  if (!c || !sid) return;
-
-  const entry = { id: uid(), name: file.name, size: fsize(file.size), type: file.type, date: today(), driveUrl: null, driveId: null };
-
-  if (S.gToken) {
-    try {
-      showBar(sid, file.name, 0);
-      const res = await driveUpload(file, p => showBar(sid, file.name, p));
-      entry.driveId  = res.id;
-      entry.driveUrl = `https://drive.google.com/file/d/${res.id}/view`;
-      hideBar(sid);
-      toast(`"${file.name}" enviado ao Drive`);
-    } catch (err) {
-      hideBar(sid);
-      toast('Erro no upload: ' + err.message, 'err');
-    }
-  } else {
-    toast(`"${file.name}" registrado (conecte o Drive para upload na nuvem)`);
+// ── CLIENT CRUD ──────────────────────────────────────────────
+function saveClient(){
+  const name=document.getElementById('fName').value.trim();
+  if(!name){toast('Informe o nome','terr');return}
+  if(S.editId){
+    const c=S.clients.find(x=>String(x.id)===S.editId);
+    if(c){c.nome=name;c.empresa=document.getElementById('fCo').value.trim();c.proj=document.getElementById('fProj').value.trim();c.area=document.getElementById('fProj').value.trim();c.owner=document.getElementById('fOwner').value.trim();c.email=document.getElementById('fEmail').value.trim()}
+    S.editId=null;toast('Cliente atualizado');
+  }else{
+    const nc={id:uid(),nome:name,empresa:document.getElementById('fCo').value.trim(),bu:'',area:document.getElementById('fProj').value.trim(),proj:document.getElementById('fProj').value.trim(),cargo:'',email:document.getElementById('fEmail').value.trim(),servico:'',idioma:'PT',status:'Ativo',feedbacks:[{periodo:'Q2 2026 — Maio',data:null,nps:null},{periodo:'Q3 2026 — Setembro',data:null,nps:null},{periodo:'Q1 2027 — Janeiro',data:null,nps:null},{periodo:'Q2 2027 — Abril',data:null,nps:null},{periodo:'Q3 2027 — Julho',data:null,nps:null}],nps_medio:null,classificacao:null,stages:initStages()};
+    S.clients.unshift(nc);S.sel=String(nc.id);toast(`"${name}" criado`);
   }
-
-  c.stages[sid].files.push(entry);
-  save(); renderMain();
+  save();clearForm();closeOv('oNew');renderClients();
+}
+function clearForm(){['fName','fCo','fProj','fOwner','fEmail'].forEach(id=>document.getElementById(id).value='')}
+function resetModal(){S.editId=null;document.getElementById('mTitle').textContent='Novo Cliente';document.getElementById('mSaveBtn').textContent='Criar Cliente';clearForm()}
+function openEdit(id){
+  const c=S.clients.find(x=>String(x.id)===String(id));if(!c)return;
+  S.editId=String(id);
+  document.getElementById('mTitle').textContent='Editar Cliente';
+  document.getElementById('mSaveBtn').textContent='Salvar';
+  document.getElementById('fName').value=c.nome||'';
+  document.getElementById('fCo').value=c.empresa||'';
+  document.getElementById('fProj').value=c.area||c.proj||'';
+  document.getElementById('fOwner').value=c.owner||'';
+  document.getElementById('fEmail').value=c.email||'';
+  openOv('oNew');
 }
 
-function showBar(sid, name, p) {
-  const w = document.getElementById(`upWrap-${sid}`);
-  if (!w) return;
-  w.style.display = 'block';
-  document.getElementById(`upName-${sid}`).textContent = name;
-  document.getElementById(`upPct-${sid}`).textContent  = Math.round(p) + '%';
-  document.getElementById(`upBar-${sid}`).style.width  = p + '%';
+// ── FILE UPLOAD ──────────────────────────────────────────────
+function trigUp(sid){_upStage=sid;document.getElementById('fi').click()}
+function onPick(e){Array.from(e.target.files).forEach(f=>handleFile(f));e.target.value=''}
+async function handleFile(file){
+  const sid=_upStage,cid=S.sel;
+  const c=S.clients.find(x=>String(x.id)===String(cid));
+  if(!c||!sid)return;
+  const entry={id:uid(),name:file.name,size:fsize(file.size),type:file.type,date:today(),driveUrl:null,driveId:null};
+  if(S.gToken){
+    try{
+      showBar(sid,file.name,0);
+      const r=await driveUp(file,p=>showBar(sid,file.name,p));
+      entry.driveId=r.id;entry.driveUrl=`https://drive.google.com/file/d/${r.id}/view`;
+      hideBar(sid);toast(`"${file.name}" enviado ao Drive`);
+    }catch(err){hideBar(sid);toast('Erro: '+err.message,'terr')}
+  }else{toast(`"${file.name}" registrado localmente`)}
+  c.stages[sid].files.push(entry);save();renderMain();
 }
-function hideBar(sid) {
-  const w = document.getElementById(`upWrap-${sid}`);
-  if (w) w.style.display = 'none';
-}
-
-function setupDropZones() {
-  document.querySelectorAll('.drop').forEach(z => {
-    const sid = z.id.replace('drop-', '');
-    z.addEventListener('dragover', e => { e.preventDefault(); z.classList.add('over'); });
-    z.addEventListener('dragleave', () => z.classList.remove('over'));
-    z.addEventListener('drop', e => {
-      e.preventDefault(); z.classList.remove('over');
-      _uploadStage = sid;
-      Array.from(e.dataTransfer.files).forEach(f => handleFile(f));
-    });
+function showBar(sid,nm,p){const w=document.getElementById(`upw-${sid}`);if(!w)return;w.style.display='block';document.getElementById(`upn-${sid}`).textContent=nm;document.getElementById(`upp-${sid}`).textContent=Math.round(p)+'%';document.getElementById(`upb-${sid}`).style.width=p+'%'}
+function hideBar(sid){const w=document.getElementById(`upw-${sid}`);if(w)w.style.display='none'}
+function setupDrops(){
+  document.querySelectorAll('.drop').forEach(z=>{
+    const sid=z.id.replace('drop-','');
+    z.addEventListener('dragover',e=>{e.preventDefault();z.classList.add('ov')});
+    z.addEventListener('dragleave',()=>z.classList.remove('ov'));
+    z.addEventListener('drop',e=>{e.preventDefault();z.classList.remove('ov');_upStage=sid;Array.from(e.dataTransfer.files).forEach(f=>handleFile(f))});
   });
 }
 
-// ── GOOGLE DRIVE UPLOAD ──────────────────────────────────────────────────────
-function driveUpload(file, onPct) {
-  const meta = { name: file.name, mimeType: file.type || 'application/octet-stream' };
-  if (G_FOLDER_ID) meta.parents = [G_FOLDER_ID];
-
-  const form = new FormData();
-  form.append('metadata', new Blob([JSON.stringify(meta)], { type: 'application/json' }));
-  form.append('file', file);
-
-  return new Promise((ok, fail) => {
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id');
-    xhr.setRequestHeader('Authorization', 'Bearer ' + S.gToken);
-    xhr.upload.onprogress = e => { if (e.lengthComputable) onPct(e.loaded / e.total * 100); };
-    xhr.onload = () => xhr.status < 300 ? ok(JSON.parse(xhr.responseText)) : fail(new Error(xhr.status + ' ' + xhr.responseText));
-    xhr.onerror = () => fail(new Error('Falha de rede'));
+// ── GOOGLE DRIVE ─────────────────────────────────────────────
+function driveUp(file,onP){
+  const meta={name:file.name,mimeType:file.type||'application/octet-stream'};
+  if(G_FOLDER_ID)meta.parents=[G_FOLDER_ID];
+  const form=new FormData();
+  form.append('metadata',new Blob([JSON.stringify(meta)],{type:'application/json'}));
+  form.append('file',file);
+  return new Promise((ok,fail)=>{
+    const xhr=new XMLHttpRequest();
+    xhr.open('POST','https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id');
+    xhr.setRequestHeader('Authorization','Bearer '+S.gToken);
+    xhr.upload.onprogress=e=>{if(e.lengthComputable)onP(e.loaded/e.total*100)};
+    xhr.onload=()=>xhr.status<300?ok(JSON.parse(xhr.responseText)):fail(new Error(xhr.status));
+    xhr.onerror=()=>fail(new Error('Falha de rede'));
     xhr.send(form);
   });
 }
+let _tc;
+function initGAuth(){
+  if(!window.google||G_CLIENT_ID.includes('YOUR_'))return;
+  _tc=google.accounts.oauth2.initTokenClient({client_id:G_CLIENT_ID,scope:'https://www.googleapis.com/auth/drive.file',callback:r=>{if(r.error){toast('Falha Google','terr');return}S.gToken=r.access_token;setGUI(true);toast('Drive conectado!')}});
+}
+function handleGAuth(){
+  if(S.gToken){if(window.google)google.accounts.oauth2.revoke(S.gToken,()=>{});S.gToken=null;setGUI(false);toast('Drive desconectado');return}
+  if(!_tc){toast('Configure G_CLIENT_ID para ativar o Drive','terr');return}
+  _tc.requestAccessToken({prompt:'consent'});
+}
+function setGUI(on){document.getElementById('btnGd').classList.toggle('ok',on);document.getElementById('gdot').classList.toggle('on',on);document.getElementById('gLabel').textContent=on?'Drive Conectado':'Google Drive'}
+window.addEventListener('load',()=>setTimeout(initGAuth,1500));
 
-// ── GOOGLE AUTH ──────────────────────────────────────────────────────────────
-let _tokenClient;
-
-function initGAuth() {
-  if (!window.google || G_CLIENT_ID.includes('YOUR_')) return;
-  _tokenClient = google.accounts.oauth2.initTokenClient({
-    client_id: G_CLIENT_ID,
-    scope: 'https://www.googleapis.com/auth/drive.file',
-    callback: r => {
-      if (r.error) { toast('Falha na autenticação Google', 'err'); return; }
-      S.gToken = r.access_token;
-      setGUI(true);
-      toast('Google Drive conectado!');
-    },
-  });
+// ── BLOCKS ───────────────────────────────────────────────────
+function renderBlocks(){
+  const grid=document.getElementById('blkGrid');
+  grid.innerHTML=BLOCK_DEFS.map(b=>{
+    const clients=S.clients.filter(c=>c.servico===b.key);
+    const resp=clients.filter(c=>c.feedbacks.some(f=>f.nps!==null)).length;
+    const pct2=clients.length?Math.round(resp/clients.length*100):0;
+    return`<div class="blk-card${S.selBlock===b.key?' sel':''}" onclick="selectBlock('${b.key}')">
+      <div class="blk-top">
+        <div class="blk-ico">${b.icon}</div>
+        <div><div class="blk-nm">${b.label}</div><div class="blk-ct">${clients.length} cliente${clients.length!==1?'s':''}</div></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--t3);margin-top:8px;">
+        <span>${resp} responderam</span><span style="color:var(--g);font-weight:700">${pct2}%</span>
+      </div>
+      <div class="blk-bar-wrap"><div class="blk-bar-fill" style="width:${pct2}%"></div></div>
+    </div>`;
+  }).join('');
+  if(S.selBlock)renderBlockDetail(S.selBlock);
+  else document.getElementById('blkDetail').innerHTML='';
 }
 
-function handleGAuth() {
-  if (S.gToken) {
-    if (window.google) google.accounts.oauth2.revoke(S.gToken, () => {});
-    S.gToken = null; setGUI(false); toast('Google Drive desconectado');
-    return;
-  }
-  if (!_tokenClient) { toast('Configure o G_CLIENT_ID no código-fonte para ativar o Drive', 'err'); return; }
-  _tokenClient.requestAccessToken({ prompt: 'consent' });
+function selectBlock(key){
+  S.selBlock=S.selBlock===key?null:key;
+  renderBlocks();
 }
 
-function setGUI(on) {
-  document.getElementById('btnGdrive').classList.toggle('ok', on);
-  document.getElementById('gdot').classList.toggle('on', on);
-  document.getElementById('gLabel').textContent = on ? 'Drive Conectado' : 'Conectar Google Drive';
+function renderBlockDetail(key){
+  const blk=BLOCK_DEFS.find(b=>b.key===key);
+  const clients=S.clients.filter(c=>c.servico===key);
+  const detail=document.getElementById('blkDetail');
+  detail.innerHTML=`<div class="blk-detail">
+    <div class="blk-detail-head">
+      <h3>${blk.icon} ${blk.label} <span style="font-size:12px;color:var(--t3);font-weight:400;">(${clients.length} clientes)</span></h3>
+      <input class="blk-search" placeholder="Filtrar…" oninput="filterBlock(this.value,'${key}')">
+    </div>
+    <div class="tbl-wrap" id="blkTbl-${key.replace(/[^a-z0-9]/gi,'_')}">
+      ${renderBlockTable(clients)}
+    </div>
+  </div>`;
 }
 
-window.addEventListener('load', () => { setTimeout(initGAuth, 1500); });
+function filterBlock(q,key){
+  const lc=q.toLowerCase();
+  const clients=S.clients.filter(c=>c.servico===key&&(c.nome.toLowerCase().includes(lc)||c.empresa.toLowerCase().includes(lc)));
+  const safe=key.replace(/[^a-z0-9]/gi,'_');
+  const el=document.getElementById('blkTbl-'+safe);
+  if(el)el.innerHTML=renderBlockTable(clients);
+}
 
-// ── BOOT ─────────────────────────────────────────────────────────────────────
+function renderBlockTable(clients){
+  if(!clients.length)return`<div style="padding:24px;text-align:center;color:var(--t3);">Nenhum cliente neste bloco.</div>`;
+  const npsClass=n=>n===null?'nps-null':n>=9?'nps-p':n>=7?'nps-n':'nps-d';
+  const clsClass=c=>c==='Promotor'?'cls-p':c==='Neutro'?'cls-n':c==='Detrator'?'cls-d':'';
+  return`<table>
+    <thead><tr>
+      <th>Cliente</th><th>Empresa</th><th>BU / Área</th><th>Cargo</th>
+      ${PERIODS.map(p=>`<th class="period-head">${p.replace(' — ','
+')}</th>`).join('')}
+      <th>NPS Médio</th><th>Classificação</th><th>Status</th>
+    </tr></thead>
+    <tbody>
+      ${clients.map(c=>`<tr>
+        <td><strong>${c.nome}</strong></td>
+        <td>${c.empresa||'—'}</td>
+        <td style="max-width:140px;white-space:normal;font-size:11px;color:var(--t2)">${c.bu||''}${c.bu&&(c.area||c.proj)?' · ':''}${c.area||c.proj||''}</td>
+        <td style="color:var(--t2)">${c.cargo||'—'}</td>
+        ${c.feedbacks.map(f=>`<td style="text-align:center">
+          ${f.nps!==null
+            ?`<div class="nps-pill ${npsClass(f.nps)}">${f.nps}</div>
+               <div style="font-size:9px;color:var(--t3);margin-top:2px">${f.data||''}</div>`
+            :`<span class="no-resp">—</span>`}
+        </td>`).join('')}
+        <td style="text-align:center">
+          ${c.nps_medio!==null?`<div class="nps-pill ${npsClass(c.nps_medio)}">${c.nps_medio}</div>`:'<span class="no-resp">—</span>'}
+        </td>
+        <td>
+          ${c.classificacao?`<span class="cls-pill ${clsClass(c.classificacao)}">${c.classificacao}</span>`:'<span class="no-resp">—</span>'}
+        </td>
+        <td><span class="status-dot ${c.status==='Ativo'?'sd-a':'sd-i'}"></span>${c.status||'—'}</td>
+      </tr>`).join('')}
+    </tbody>
+  </table>`;
+}
+
+// ── BOOT ─────────────────────────────────────────────────────
 load();
-renderAll();
+goHome();
 </script>
 </body>
 </html>
