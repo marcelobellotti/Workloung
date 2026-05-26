@@ -293,7 +293,7 @@
     <button class="btn-sync" id="btnSync" onclick="syncFromSheets()">🔄 Sincronizar</button>
     <button class="btn-gd" id="btnGd" onclick="handleGAuth()">
       <span class="gdot" id="gdot"></span>
-      <span id="gLabel">Google Drive</span>
+      <span id="gLabel">Google Sheets</span>
     </button>
   </div>
 </header>
@@ -1071,14 +1071,14 @@ async function syncFromSheets(){
 let _tc;
 function initGAuth(){
   if(!window.google||G_CLIENT_ID.includes('YOUR_'))return;
-  _tc=google.accounts.oauth2.initTokenClient({client_id:G_CLIENT_ID,scope:'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/spreadsheets.readonly',callback:r=>{if(r.error){toast('Falha Google','terr');return}S.gToken=r.access_token;setGUI(true);toast('Drive conectado!')}});
+  _tc=google.accounts.oauth2.initTokenClient({client_id:G_CLIENT_ID,scope:'https://www.googleapis.com/auth/spreadsheets.readonly',callback:r=>{if(r.error){toast('Erro OAuth: '+r.error,'terr');return}S.gToken=r.access_token;setGUI(true);toast('Google conectado!')}});
 }
 function handleGAuth(){
   if(S.gToken){if(window.google)google.accounts.oauth2.revoke(S.gToken,()=>{});S.gToken=null;setGUI(false);toast('Drive desconectado');return}
   if(!_tc){toast('Configure G_CLIENT_ID para ativar o Drive','terr');return}
   _tc.requestAccessToken({prompt:'consent'});
 }
-function setGUI(on){document.getElementById('btnGd').classList.toggle('ok',on);document.getElementById('gdot').classList.toggle('on',on);document.getElementById('gLabel').textContent=on?'Drive Conectado':'Google Drive'}
+function setGUI(on){document.getElementById('btnGd').classList.toggle('ok',on);document.getElementById('gdot').classList.toggle('on',on);document.getElementById('gLabel').textContent=on?'Google Conectado':'Google Sheets'}
 window.addEventListener('load',()=>setTimeout(initGAuth,1500));
 
 // ── BLOCKS ───────────────────────────────────────────────────
